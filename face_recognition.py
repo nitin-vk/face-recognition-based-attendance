@@ -3,6 +3,12 @@ import os
 import numpy as np
 import cv2 as cv
 from FaceDetectionModule import FaceDetectionModule
+from SpreadSheetModule import SpreadSheetModule
+import xlsxwriter
+
+spread_sheet_dir=dir="hello.xlsx"
+path=dir
+check=os.path.isfile(path)
 dir=r"C:\Users\Nitin V Kavya\Desktop\College\Final_Year_project\Final_Year\Faces\train"
 l=30
 t=7
@@ -14,13 +20,16 @@ faces_read={}
 for i in os.listdir(dir):
     people.append(i)
 print(people)
-# features = np.load('features.npy', allow_pickle=True)
-# labels = np.load('labels.npy')
+spread=SpreadSheetModule(people)
+if check==False:
+    spread.createSpreadSheet(spread_sheet_dir)
+
+    
 
 face_recognizer = cv.face.LBPHFaceRecognizer_create()
 face_recognizer.read('face_trained.yml')
 
-capture=cv.VideoCapture(r"C:\Users\Nitin V Kavya\Desktop\videoplayback (1).webm")
+capture=cv.VideoCapture(0)
 f=FaceDetectionModule()
 while True:
     isTrue,img=capture.read()
