@@ -5,8 +5,8 @@ from FaceDetectionModule import FaceDetectionModule
 from SpreadSheetModule import SpreadSheetModule
 import xlsxwriter
 
-spread_sheet_dir=dir="hello.xlsx"
-path=dir
+spread_sheet_dir="hello.xlsx"
+path=spread_sheet_dir
 check=os.path.isfile(path)
 dir=r"C:\Users\Nitin V Kavya\Desktop\College\Final_Year_project\Final_Year\Faces\train"
 l=30
@@ -15,6 +15,7 @@ haar_cascade = cv.CascadeClassifier(r'C:\Users\Nitin V Kavya\Desktop\python\Open
 
 #people = ['Ben Afflek', 'Elton John', 'Jerry Seinfield', 'Madonna', 'Mindy Kaling', 'Nitin']
 people = []
+presentPeople=[]
 faces_read={}
 for i in os.listdir(dir):
     people.append(i)
@@ -52,6 +53,8 @@ while True:
         cv.putText(img, str(people[label]), (20,20), cv.FONT_HERSHEY_COMPLEX, 1.0, (0,255,0), thickness=2)
         faces_read.setdefault(people[label],[])
         faces_read[people[label]].append(confidence)
+        if people[label] not in presentPeople:
+            presentPeople.append(people[label])
         
        
 
@@ -66,10 +69,12 @@ while True:
 
 capture.release()
 cv.destroyAllWindows()
-print(faces_read)
-for i in faces_read.keys():
+#print(faces_read)
+#print(presentPeople)
+spread.updateSpreadSheet(presentPeople,spread_sheet_dir)
+'''for i in faces_read.keys():
     faces_read[i].sort()
 
     if len(faces_read[i])>10:
         faces_read[i]=faces_read[i][0:10]
-print(faces_read)
+print(faces_read)'''
