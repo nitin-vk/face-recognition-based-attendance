@@ -56,13 +56,6 @@ while True:
         if people[label] not in presentPeople:
             presentPeople.append(people[label])
         
-       
-
-
-        
-
-
-
     cv.imshow('Detected Face', img)
     if cv.waitKey(20) & 0xFF==ord('b'):
         break
