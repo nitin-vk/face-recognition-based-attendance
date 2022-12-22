@@ -1,4 +1,3 @@
-#pylint:disable=no-member
 import os
 import numpy as np
 import cv2 as cv
@@ -32,6 +31,7 @@ face_recognizer.read('face_trained.yml')
 capture=cv.VideoCapture(0)
 f=FaceDetectionModule()
 while True:
+    
     isTrue,img=capture.read()
 #img = cv.imread(r"C:\Users\Nitin V Kavya\Desktop\python\OpenCV\Faces\val\elton_john\3.jpg")
     img,boxes=f.findFace(img)
@@ -42,6 +42,7 @@ while True:
     faces_rect = haar_cascade.detectMultiScale(gray, 1.1, 4)
 
     for (x,y,w,h) in faces_rect:
+        
         x1,y1=x+w,y+h
         faces_roi = gray[y:y+h,x:x+w]
 
@@ -51,6 +52,9 @@ while True:
         cv.putText(img, str(people[label]), (20,20), cv.FONT_HERSHEY_COMPLEX, 1.0, (0,255,0), thickness=2)
         faces_read.setdefault(people[label],[])
         faces_read[people[label]].append(confidence)
+        
+       
+
 
         
 
