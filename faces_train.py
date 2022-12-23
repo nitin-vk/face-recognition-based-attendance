@@ -1,6 +1,7 @@
 import os
 import cv2 as cv
 import numpy as np
+#new comment
 dir=r"C:\Users\Nitin V Kavya\Desktop\College\Final_Year_project\Final_Year\Faces\train"
 people=[]
 haar_cascade=cv.CascadeClassifier(r"C:\Users\Nitin V Kavya\Desktop\python\OpenCV\haar_face.xml")
