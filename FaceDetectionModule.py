@@ -8,6 +8,7 @@ class FaceDetectionModule:
         self.model_selection = model_selection
 
         self.faceD=mp.solutions.face_detection
+        
         self.faceDetect=self.faceD.FaceDetection(0.75)
         self.mpdraw=mp.solutions.drawing_utils
 
