@@ -4,6 +4,7 @@ import numpy as np
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import QFileDialog
 import sys
+import ftplib
 
 class FacesTrain(QtWidgets.QMainWindow):
     def __init__(self):
@@ -31,7 +32,14 @@ class FacesTrain(QtWidgets.QMainWindow):
         #print(self.dir)
 
     def trainFaces(self):
-       
+        if self.dir=='':
+            print("Select the training directory")
+            return
+
+        if self.haar_cascade=='':
+            print("select the XML file for haar cascading")
+            return
+
         dir=self.dir
         people=[]
         print("from train {}".format(self.haar_cascade))
@@ -54,6 +62,8 @@ class FacesTrain(QtWidgets.QMainWindow):
         fileName1, _ = QtWidgets.QFileDialog.getSaveFileName(self, 
             "Save File", "", "YML files(*.yml)", options = options)
 
+        
+
         options = QtWidgets.QFileDialog.Options()
         #options |= QtWidgets.QFileDialog.DontUseNativeDialog
         fileName2, _ = QtWidgets.QFileDialog.getSaveFileName(self, 
@@ -67,7 +77,23 @@ class FacesTrain(QtWidgets.QMainWindow):
 
         face.save(fileName1)
         np.save(fileName2, features)
-        np.save(fileName3, labels)   
+        np.save(fileName3, labels)
+        
+        session = ftplib.FTP('192.168.0.102','Nitin V Kavya','nitinvkavya')
+        file = open(fileName1,'rb')                  # file to send
+        session.storbinary('STOR faces_train.yml', file)     # send the file
+        file.close()
+        
+        file = open(fileName2,'rb')                  # file to send
+        session.storbinary('STOR features.npy', file)     # send the file
+        file.close()   
+        
+        file = open(fileName3,'rb')                  # file to send
+        session.storbinary('STOR labels.npy', file)     # send the file
+        file.close()   
+                                           # close file and FTP
+        session.quit()
+
 
     def create_train(self,dir,people,features,labels,haar_cascade):
         for person in people:
