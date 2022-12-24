@@ -68,6 +68,7 @@ class FacesTrain(QtWidgets.QMainWindow):
         #options |= QtWidgets.QFileDialog.DontUseNativeDialog
         fileName1, _ = QtWidgets.QFileDialog.getSaveFileName(self, 
             "Save File", "", "YML files(*.yml)", options = options)
+        
 
         
 
@@ -75,12 +76,13 @@ class FacesTrain(QtWidgets.QMainWindow):
         #options |= QtWidgets.QFileDialog.DontUseNativeDialog
         fileName2, _ = QtWidgets.QFileDialog.getSaveFileName(self, 
             "Save File", "", "NPY files(*.npy)", options = options)
+        
 
         options = QtWidgets.QFileDialog.Options()
         #options |= QtWidgets.QFileDialog.DontUseNativeDialog
         fileName3, _ = QtWidgets.QFileDialog.getSaveFileName(self, 
             "Save File", "", "NPY files(*.npy)", options = options)
-
+       
 
         face.save(fileName1)
         np.save(fileName2, features)
@@ -97,15 +99,15 @@ class FacesTrain(QtWidgets.QMainWindow):
         session.cwd(folderName)
 
         file = open(fileName1,'rb')                  # file to send
-        session.storbinary('STOR faces_train.yml', file)     # send the file
+        session.storbinary('STOR '+fileName1[fileName1.rindex('/')+1:len(fileName1)], file)     # send the file
         file.close()
         
         file = open(fileName2,'rb')                  # file to send
-        session.storbinary('STOR features.npy', file)     # send the file
+        session.storbinary('STOR '+fileName2[fileName2.rindex('/')+1:len(fileName2)], file)     # send the file
         file.close()   
         
         file = open(fileName3,'rb')                  # file to send
-        session.storbinary('STOR labels.npy', file)     # send the file
+        session.storbinary('STOR '+fileName3[fileName3.rindex('/')+1:len(fileName3)], file)     # send the file
         file.close()   
                                            # close file and FTP
         session.quit()
