@@ -5,6 +5,7 @@ from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import QFileDialog
 import sys
 import ftplib
+import time
 
 class FacesTrain(QtWidgets.QMainWindow):
     def __init__(self):
@@ -16,6 +17,8 @@ class FacesTrain(QtWidgets.QMainWindow):
         self.selectXml.clicked.connect(self.selectXmlFile)
         self.selectDir.clicked.connect(self.selectDirectory)
         self.trainBtn.clicked.connect(self.trainFaces)
+        self.progressFrame.hide()
+        self.doneFrame.hide()
 
     def selectXmlFile(self):
         self.haar_cascade = QFileDialog.getOpenFileName(self, 'Open file', 
@@ -39,7 +42,7 @@ class FacesTrain(QtWidgets.QMainWindow):
         if self.haar_cascade=='':
             print("select the XML file for haar cascading")
             return
-
+        self.progressFrame.show()
         dir=self.dir
         people=[]
         print("from train {}".format(self.haar_cascade))
@@ -50,7 +53,8 @@ class FacesTrain(QtWidgets.QMainWindow):
         features=[]
         labels=[]
         self.create_train(dir,people,features,labels,haar_cascade)
-        print("Training Done")
+        #print("Training Done")
+        self.doneFrame.show()
         features=np.array(features,dtype='object')
         labels=np.array(labels)
 
@@ -99,7 +103,8 @@ class FacesTrain(QtWidgets.QMainWindow):
         for person in people:
             path=os.path.join(str(dir),person)
             label=people.index(person)
-
+            self.trainProgress.setValue(int((label+1)/(len(people))*100))
+            #time.sleep(5)
             for img in os.listdir(path):
                 img_path=os.path.join(path,img)
                 img_array=cv.imread(img_path)
