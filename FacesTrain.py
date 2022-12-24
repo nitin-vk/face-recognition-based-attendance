@@ -5,7 +5,7 @@ from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import QFileDialog
 import sys
 import ftplib
-import time
+
 
 class FacesTrain(QtWidgets.QMainWindow):
     def __init__(self):
