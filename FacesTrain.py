@@ -5,6 +5,7 @@ from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import QFileDialog
 import sys
 import ftplib
+from ftplib import FTP
 
 
 class FacesTrain(QtWidgets.QMainWindow):
@@ -14,6 +15,7 @@ class FacesTrain(QtWidgets.QMainWindow):
         self.show()
         self.dir=''
         self.haar_cascade=''
+        self.ftp_dir=''
         self.selectXml.clicked.connect(self.selectXmlFile)
         self.selectDir.clicked.connect(self.selectDirectory)
         self.trainBtn.clicked.connect(self.trainFaces)
@@ -32,7 +34,8 @@ class FacesTrain(QtWidgets.QMainWindow):
 
     def selectDirectory(self):
         self.dir = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
-        #print(self.dir)
+        self.ftp_dir=str(self.dir[self.dir.rindex('/')+1:len(self.dir)])
+        
 
     def trainFaces(self):
         if self.dir=='':
@@ -82,8 +85,17 @@ class FacesTrain(QtWidgets.QMainWindow):
         face.save(fileName1)
         np.save(fileName2, features)
         np.save(fileName3, labels)
+
+        ftp = FTP(host="192.168.0.102");
+        ftp.login(user="Nitin V Kavya", passwd="nitinvkavya");
+        folderName = self.ftp_dir
+        if folderName not in ftp.nlst():
+            ftp.mkd(folderName)
+        ftp.quit()
         
         session = ftplib.FTP('192.168.0.102','Nitin V Kavya','nitinvkavya')
+        session.cwd(folderName)
+
         file = open(fileName1,'rb')                  # file to send
         session.storbinary('STOR faces_train.yml', file)     # send the file
         file.close()
