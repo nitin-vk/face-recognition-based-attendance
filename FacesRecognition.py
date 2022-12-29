@@ -5,6 +5,7 @@ from FaceDetectionModule import FaceDetectionModule
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import QFileDialog,QMessageBox
 import sys
+from SpreadSheetModule import SpreadSheetModule
 
 class FacesRecognition(QtWidgets.QMainWindow):
     def __init__(self):
@@ -14,17 +15,29 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.yml_file=''
         self.haar_cascade=''
         self.ftp_dir=''
+        self.people=[]
+        self.faces_read={}
         self.afterSelectFrame.hide()
         self.downloadBtn.hide()
         self.recognizeBtn.hide()
         self.frame_4.hide()
         self.frame_5.hide()
+        self.frame_6.hide()
+        self.frame_7.hide()
+        self.sheetNameLabel.hide()
+        self.sheetNameText.hide()
+        self.spreadOkBtn.hide()
+        self.spreadCancelBtn.hide()
         self.videoTypeWindow.hide()
+        self.listWidget.hide()
         self.localBtn.clicked.connect(self.serachLocalFiles)
         self.recognizeBtn.clicked.connect(self.recognizeFaces)
         self.cancelBtn.clicked.connect(self.hideVideoTypeWindow)
         self.okBtn.clicked.connect(self.startStreaming)
-
+        self.spreadSheetBtn.hide()
+        self.spreadSheetBtn.clicked.connect(self.invokeSpreadSheet)
+        self.spreadOkBtn.clicked.connect(self.createSpreadSheet)
+        self.spreadCancelBtn.clicked.connect(self.cancelSpread)
 
     def serachLocalFiles(self):
         self.yml_file=QFileDialog.getOpenFileName(self, 'Open file', 
@@ -39,7 +52,9 @@ class FacesRecognition(QtWidgets.QMainWindow):
             self.fileLocation.insertPlainText(yml_file)
         self.afterSelectFrame.show()
         self.downloadBtn.show()
+        self.spreadSheetBtn.show()
         self.downloadBtn.setEnabled(False)
+        self.spreadSheetBtn.setEnabled(False)
         self.recognizeBtn.show()
 
     def recognizeFaces(self):
@@ -52,7 +67,51 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.frame_5.hide()
         self.videoTypeWindow.hide()
 
+    def invokeSpreadSheet(self):
+        self.frame_6.show()
+        self.frame_7.show()
+        self.listWidget.show()
+        self.sheetNameLabel.show()
+        self.sheetNameText.show()
+        self.spreadOkBtn.show()
+        self.spreadCancelBtn.show()
+
+    def cancelSpread(self):
+        self.frame_6.hide()
+        self.frame_7.hide()
+        self.sheetNameLabel.hide()
+        self.sheetNameText.hide()
+        self.spreadOkBtn.hide()
+        self.spreadCancelBtn.hide()
+        self.listWidget.hide()
+        
+
+    def createSpreadSheet(self):
+        self.frame_6.hide()
+        self.frame_7.hide()
+        self.sheetNameLabel.hide()
+        self.sheetNameText.hide()
+        self.spreadOkBtn.hide()
+        self.spreadCancelBtn.hide()
+        self.listWidget.hide()
+        spread=SpreadSheetModule(self.people)
+        mytext = self.sheetNameText.toPlainText()
+        if mytext=='':
+            QMessageBox.about(self, "ERROR", "ENTER THE FILE NAME")
+            return
+        mytext=mytext+'.xlsx'
+        isExist = os.path.exists(mytext)
+        if isExist==False:
+            spread.createSpreadSheet(mytext)
+        spread.updateSpreadSheet(self.faces_read,mytext)
+
+
     def startStreaming(self):
+        self.frame_4.hide()
+        self.frame_5.hide()
+        self.videoTypeWindow.hide()
+        self.people=[]
+        self.faces_read={}
         videoType=''
         if self.liveStreamBtn.isChecked():
             videoType=0
@@ -70,11 +129,10 @@ class FacesRecognition(QtWidgets.QMainWindow):
         l=30
         t=7
         haar_cascade = cv.CascadeClassifier(r'C:\Users\Nitin V Kavya\Desktop\python\OpenCV\haar_face.xml')
-        people = []
-        faces_read={}
+        
         for i in os.listdir(dir):
-            people.append(i)
-        print(people)
+            self.people.append(i)
+        print(self.people)
 
 
         face_recognizer = cv.face.LBPHFaceRecognizer_create()
@@ -99,11 +157,11 @@ class FacesRecognition(QtWidgets.QMainWindow):
                 faces_roi = gray[y:y+h,x:x+w]
 
                 label, confidence = face_recognizer.predict(faces_roi)
-                print(f'Label = {people[label]} with a confidence of {confidence}')
+                print(f'Label = {self.people[label]} with a confidence of {confidence}')
 
-                cv.putText(img, str(people[label]), (20,20), cv.FONT_HERSHEY_COMPLEX, 1.0, (0,255,0), thickness=2)
-                faces_read.setdefault(people[label],[])
-                faces_read[people[label]].append(confidence)
+                cv.putText(img, str(self.people[label]), (20,20), cv.FONT_HERSHEY_COMPLEX, 1.0, (0,255,0), thickness=2)
+                self.faces_read.setdefault(self.people[label],[])
+                self.faces_read[self.people[label]].append(confidence)
         
             cv.imshow('Detected Face', img)
             if cv.waitKey(20) & 0xFF==ord('b'):
@@ -111,6 +169,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
 
         capture.release()
         cv.destroyAllWindows()
+        self.spreadSheetBtn.setEnabled(True)
 
 app = QtWidgets.QApplication(sys.argv)
 window = FacesRecognition()
