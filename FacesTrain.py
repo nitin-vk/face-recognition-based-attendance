@@ -46,6 +46,7 @@ class FacesTrain(QtWidgets.QMainWindow):
             print("select the XML file for haar cascading")
             return
         self.progressFrame.show()
+        
         dir=self.dir
         people=[]
         print("from train {}".format(self.haar_cascade))
@@ -120,6 +121,7 @@ class FacesTrain(QtWidgets.QMainWindow):
             path=os.path.join(str(dir),person)
             label=people.index(person)
             self.trainProgress.setValue(int((label+1)/(len(people))*100))
+            self.trainProgress.setTextVisible(False)
             #time.sleep(5)
             for img in os.listdir(path):
                 img_path=os.path.join(path,img)
@@ -174,23 +176,16 @@ QPushButton:on {
         padding-left: 3px;
 }
 
-QProgressBar{
-
-  	background-color: #ee303c;  
-  border-radius: 4px; 
-  transition: 0.4s linear;  
-  transition-property: width, background-color;  
-   background-color: #FCBC51; 
-  width: 100%; 
-  background-image: linear-gradient(
-        45deg, rgb(252,163,17) 25%, 
-        transparent 25%, transparent 50%, 
-        rgb(252,163,17) 50%, rgb(252,163,17) 75%,
-        transparent 75%, transparent); 
-  animation: progressAnimationStrike 6s;
- 
+QProgressBar {
+    border: 2px solid #2196F3;
+    border-radius: 5px;
+    background-color: #E0E0E0;
 }
-
+QProgressBar::chunk {
+    background-color: #2196F3;
+    width: 10px; 
+    margin: 0.5px;
+}
 
 
 """
