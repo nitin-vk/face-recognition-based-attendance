@@ -158,9 +158,6 @@ QPushButton {
         height: 30px;
 }
 
-
-
-
 QPushButton:pressed {
         background: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 :   1, stop :   0.0 #c0dbff,
         stop :   0.5 #cfd26f, stop :   0.55 #c7df6f, stop :   1.0 #f5f9ff);
@@ -177,14 +174,27 @@ QPushButton:on {
         padding-left: 3px;
 }
 
-QPushButton:disabled {
-        background: transparent #e5e9ee;
-        padding-top: 2px;        
-        padding-left: 3px;
-        color: black;
+QProgressBar{
+
+  	background-color: #ee303c;  
+  border-radius: 4px; 
+  transition: 0.4s linear;  
+  transition-property: width, background-color;  
+   background-color: #FCBC51; 
+  width: 100%; 
+  background-image: linear-gradient(
+        45deg, rgb(252,163,17) 25%, 
+        transparent 25%, transparent 50%, 
+        rgb(252,163,17) 50%, rgb(252,163,17) 75%,
+        transparent 75%, transparent); 
+  animation: progressAnimationStrike 6s;
+ 
 }
 
+
+
 """
+
 app.setStyleSheet(style)
 window = FacesTrain()
 app.exec_()
