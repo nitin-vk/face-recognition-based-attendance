@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="images">
+    <file>images/pyhton icon.png</file>
+    <file>images/coding-on-screen-glyph.jpg</file>
+  </qresource>
+</RCC>

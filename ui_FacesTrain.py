@@ -15,6 +15,8 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(608, 367)
+        Form.setMinimumSize(QtCore.QSize(608, 367))
+        Form.setStyleSheet("")
         self.frame = QtWidgets.QFrame(Form)
         self.frame.setGeometry(QtCore.QRect(140, 180, 355, 52))
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -48,6 +50,13 @@ class Ui_Form(object):
         self.trainingDone = QtWidgets.QTextEdit(self.doneFrame)
         self.trainingDone.setGeometry(QtCore.QRect(200, 0, 121, 31))
         self.trainingDone.setObjectName("trainingDone")
+        self.label = QtWidgets.QLabel(Form)
+        self.label.setGeometry(QtCore.QRect(230, 70, 161, 111))
+        self.label.setMinimumSize(QtCore.QSize(161, 0))
+        self.label.setText("")
+        self.label.setPixmap(QtGui.QPixmap(":/images/images/pyhton icon.png"))
+        self.label.setScaledContents(True)
+        self.label.setObjectName("label")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -59,7 +68,11 @@ class Ui_Form(object):
         self.trainBtn.setText(_translate("Form", "TRAIN"))
         self.selectDir.setText(_translate("Form", "SELECT DIR"))
         self.trainingDone.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">Training Done</span></p></body></html>"))
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:\'Segoe UI\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:10pt;\">Training Done</span></p></body></html>"))
+import resource_from_pyqt_rc
