@@ -1,6 +1,6 @@
 import cv2 as cv
 import mediapipe as mp
-import time
+
 #nitin was here
 class FaceDetectionModule:
     def __init__(self,min_detection_confidence=0.5, model_selection=0):
