@@ -91,14 +91,14 @@ class FacesTrain(QtWidgets.QMainWindow):
         np.save(fileName2, features)
         np.save(fileName3, labels)
 
-        ftp = FTP(host="192.168.0.101");
+        ftp = FTP(host="192.168.0.104");
         ftp.login(user="Nitin V Kavya", passwd="nitinvkavya");
         folderName = self.ftp_dir
         if folderName not in ftp.nlst():
             ftp.mkd(folderName)
         ftp.quit()
         
-        session = ftplib.FTP('192.168.0.101','Nitin V Kavya','nitinvkavya')
+        session = ftplib.FTP('192.168.0.104','Nitin V Kavya','nitinvkavya')
         session.cwd(folderName)
 
         file = open(fileName1,'rb')                  # file to send

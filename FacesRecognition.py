@@ -17,7 +17,7 @@ print(people)
 # labels = np.load('labels.npy')
 
 face_recognizer = cv.face.LBPHFaceRecognizer_create()
-face_recognizer.read('face_trained.yml')
+face_recognizer.read('faces_train.yml')
 
 capture=cv.VideoCapture(0)
 f=FaceDetectionModule()
