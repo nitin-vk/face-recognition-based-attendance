@@ -45,8 +45,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.spreadOkBtn.clicked.connect(self.createSpreadSheet)
         self.spreadCancelBtn.clicked.connect(self.cancelSpread)
         self.ftpBtn.clicked.connect(self.ftpProcess)
-        self.ftpCancelBtn.clicked.connect(self.cancelFtp)
-        self.ftpConnectBtn.clicked.connect(self.connectFtp)
+        
 
     def ftpProcess(self):
         #self.ftpWidget.show()
@@ -54,30 +53,6 @@ class FacesRecognition(QtWidgets.QMainWindow):
         #self.ftpButtonFrame.show()
         mainobj=Main()
         
-        
-
-    def cancelFtp(self):
-        self.ftpWidget.hide()
-        self.frame_8.hide()
-        self.ftpButtonFrame.hide()
-
-    def connectFtp(self):
-        FTP_IP=self.ftpIpTextBox.toPlainText()
-        FTP_USERNAME=self.ftpUsernameTextBox.toPlainText()
-        FTP_PASSWORD=self.ftpPasswordTextBox.toPlainText()
-        ftp = ftplib.FTP(FTP_IP, FTP_USERNAME, FTP_PASSWORD)
-        """p = QProcess()
-        p.startDetached("C:\\Windows\\explorer.exe", ["ftp://Nitin V Kavya:Nitin V Kavya@192.168.0.103:21"])"""
-        url = QUrl("ftp://192.168.174.129:21")
-        url.setScheme("ftp")
-        print(url)
-        self.yml_file=QFileDialog.getOpenFileUrl(self, 'Open file', 
-        url)
-        print(self.yml_file)
-
-
-
-
     def serachLocalFiles(self):
         self.yml_file=QFileDialog.getOpenFileName(self, 'Open file', 
         'c:\\',"YML files (*.yml)")
