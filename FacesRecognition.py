@@ -2,6 +2,7 @@ import os,ftplib
 import numpy as np
 import cv2 as cv
 from FaceDetectionModule import FaceDetectionModule
+from main import Main
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import QProcess,QUrl
 from PyQt5.QtWidgets import QFileDialog,QMessageBox
@@ -48,9 +49,12 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.ftpConnectBtn.clicked.connect(self.connectFtp)
 
     def ftpProcess(self):
-        self.ftpWidget.show()
-        self.frame_8.show()
-        self.ftpButtonFrame.show()
+        #self.ftpWidget.show()
+        #self.frame_8.show()
+        #self.ftpButtonFrame.show()
+        mainobj=Main()
+        
+        
 
     def cancelFtp(self):
         self.ftpWidget.hide()
