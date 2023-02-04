@@ -24,12 +24,15 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.frame_5.hide()
         self.frame_6.hide()
         self.frame_7.hide()
+        self.frame_8.hide()
+        self.ftpWidget.hide()
         self.sheetNameLabel.hide()
         self.sheetNameText.hide()
         self.spreadOkBtn.hide()
         self.spreadCancelBtn.hide()
         self.videoTypeWindow.hide()
         self.listWidget.hide()
+        self.ftpButtonFrame.hide()
         self.localBtn.clicked.connect(self.serachLocalFiles)
         self.recognizeBtn.clicked.connect(self.recognizeFaces)
         self.cancelBtn.clicked.connect(self.hideVideoTypeWindow)
@@ -38,6 +41,19 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.spreadSheetBtn.clicked.connect(self.invokeSpreadSheet)
         self.spreadOkBtn.clicked.connect(self.createSpreadSheet)
         self.spreadCancelBtn.clicked.connect(self.cancelSpread)
+        self.ftpBtn.clicked.connect(self.ftpProcess)
+        self.ftpCancelBtn.clicked.connect(self.cancelFtp)
+
+    def ftpProcess(self):
+        self.ftpWidget.show()
+        self.frame_8.show()
+        self.ftpButtonFrame.show()
+
+    def cancelFtp(self):
+        self.ftpWidget.hide()
+        self.frame_8.hide()
+        self.ftpButtonFrame.hide()
+
 
     def serachLocalFiles(self):
         self.yml_file=QFileDialog.getOpenFileName(self, 'Open file', 
