@@ -3,8 +3,9 @@ import numpy as np
 import cv2 as cv
 from FaceDetectionModule import FaceDetectionModule
 from PyQt5 import QtWidgets, uic
-from PyQt5.QtCore import QProcess
+from PyQt5.QtCore import QProcess,QUrl
 from PyQt5.QtWidgets import QFileDialog,QMessageBox
+from PyQt5.QtGui import QDesktopServices
 import sys
 from SpreadSheetModule import SpreadSheetModule
 
@@ -57,17 +58,18 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.ftpButtonFrame.hide()
 
     def connectFtp(self):
-        #p = QProcess()
-        #p.startDetached("C:\\Windows\\explorer.exe", ["ftp://NitinVKavya:NitinVKavya@192.168.0.103:21"])
-        #self.yml_file=QFileDialog.getOpenFileName(self, 'Open file', 
-        #'ftp://192.168.0.103',"YML files (*.yml)")
         FTP_IP=self.ftpIpTextBox.toPlainText()
         FTP_USERNAME=self.ftpUsernameTextBox.toPlainText()
         FTP_PASSWORD=self.ftpPasswordTextBox.toPlainText()
-        #Connect to FTP server
         ftp = ftplib.FTP(FTP_IP, FTP_USERNAME, FTP_PASSWORD)
-        #Get welcome message
-        print(ftp.getwelcome())
+        """p = QProcess()
+        p.startDetached("C:\\Windows\\explorer.exe", ["ftp://Nitin V Kavya:Nitin V Kavya@192.168.0.103:21"])"""
+        url = QUrl("ftp://192.168.174.129:21")
+        url.setScheme("ftp")
+        print(url)
+        self.yml_file=QFileDialog.getOpenFileUrl(self, 'Open file', 
+        url)
+        print(self.yml_file)
 
 
 
@@ -75,6 +77,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
     def serachLocalFiles(self):
         self.yml_file=QFileDialog.getOpenFileName(self, 'Open file', 
         'c:\\',"YML files (*.yml)")
+        print(self.yml_file)
         self.yml_file=str(self.yml_file)
         pos=self.yml_file.index(',')
         self.yml_file=self.yml_file[2:pos-1]
