@@ -27,15 +27,12 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.frame_5.hide()
         self.frame_6.hide()
         self.frame_7.hide()
-        self.frame_8.hide()
-        self.ftpWidget.hide()
         self.sheetNameLabel.hide()
         self.sheetNameText.hide()
         self.spreadOkBtn.hide()
         self.spreadCancelBtn.hide()
         self.videoTypeWindow.hide()
         self.listWidget.hide()
-        self.ftpButtonFrame.hide()
         self.localBtn.clicked.connect(self.serachLocalFiles)
         self.recognizeBtn.clicked.connect(self.recognizeFaces)
         self.cancelBtn.clicked.connect(self.hideVideoTypeWindow)
@@ -48,9 +45,6 @@ class FacesRecognition(QtWidgets.QMainWindow):
         
 
     def ftpProcess(self):
-        #self.ftpWidget.show()
-        #self.frame_8.show()
-        #self.ftpButtonFrame.show()
         mainobj=Main()
         
     def serachLocalFiles(self):
