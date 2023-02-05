@@ -67,7 +67,7 @@ class FacesTrain(QtWidgets.QMainWindow):
         face=cv.face.LBPHFaceRecognizer_create()
         face.train(features,labels)
 
-        options = QtWidgets.QFileDialog.Options()
+        '''options = QtWidgets.QFileDialog.Options()
         #options |= QtWidgets.QFileDialog.DontUseNativeDialog
         fileName1, _ = QtWidgets.QFileDialog.getSaveFileName(self, 
             "Save File", "", "YML files(*.yml)", options = options)
@@ -84,21 +84,25 @@ class FacesTrain(QtWidgets.QMainWindow):
         options = QtWidgets.QFileDialog.Options()
         #options |= QtWidgets.QFileDialog.DontUseNativeDialog
         fileName3, _ = QtWidgets.QFileDialog.getSaveFileName(self, 
-            "Save File", "", "NPY files(*.npy)", options = options)
+            "Save File", "", "NPY files(*.npy)", options = options)'''
        
+        folderName=self.ftp_dir
+        if os.path.exists('D:/Compiled Files/'+folderName)==False:
+            os.mkdir('D:/Compiled Files/'+folderName)
+        
 
-        face.save(fileName1)
-        np.save(fileName2, features)
-        np.save(fileName3, labels)
+        face.save('D:/Compiled Files/'+folderName+'/compiled.yml')
+        np.save('D:/Compiled Files/'+folderName+'/features', features)
+        np.save('D:/Compiled Files/'+folderName+'/labels', labels)
 
-        ftp = FTP(host="192.168.0.104");
+        '''ftp = FTP(host="192.168.0.104");
         ftp.login(user="Nitin V Kavya", passwd="nitinvkavya");
         folderName = self.ftp_dir
         if folderName not in ftp.nlst():
             ftp.mkd(folderName)
-        ftp.quit()
+        ftp.quit()'''
         
-        session = ftplib.FTP('192.168.0.104','Nitin V Kavya','nitinvkavya')
+        '''session = ftplib.FTP('192.168.0.104','Nitin V Kavya','nitinvkavya')
         session.cwd(folderName)
 
         file = open(fileName1,'rb')                  # file to send
@@ -114,9 +118,9 @@ class FacesTrain(QtWidgets.QMainWindow):
         file.close()   
                                            # close file and FTP
         session.quit()
-        os.remove(fileName1)
-        os.remove(fileName2)
-        os.remove(fileName3)
+        #os.remove(fileName1)
+        #os.remove(fileName2)
+        #os.remove(fileName3)'''
 
     def create_train(self,dir,people,features,labels,haar_cascade):
         for person in people:
