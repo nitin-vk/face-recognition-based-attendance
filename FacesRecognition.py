@@ -175,6 +175,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
                     self.faces_read[self.people[label]].sort()
                 else:
                     if confidence<self.faces_read[self.people[label]][9]:
+                        del self.faces_read[self.people[label]][9]
                         self.faces_read[self.people[label]].append(confidence)
                         self.faces_read[self.people[label]].sort()
 
@@ -187,7 +188,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         capture.release()
         cv.destroyAllWindows()
         self.spreadSheetBtn.setEnabled(True)
-        print(self.faces_read)
+        #print(self.faces_read)
 
 app = QtWidgets.QApplication(sys.argv)
 window = FacesRecognition()
