@@ -170,7 +170,15 @@ class FacesRecognition(QtWidgets.QMainWindow):
 
                 cv.putText(img, str(self.people[label]), (20,20), cv.FONT_HERSHEY_COMPLEX, 1.0, (0,255,0), thickness=2)
                 self.faces_read.setdefault(self.people[label],[])
-                self.faces_read[self.people[label]].append(confidence)
+                if len(self.faces_read[self.people[label]])<10:
+                    self.faces_read[self.people[label]].append(confidence)
+                    self.faces_read[self.people[label]].sort()
+                else:
+                    if confidence<self.faces_read[self.people[label]][9]:
+                        self.faces_read[self.people[label]].append(confidence)
+                        self.faces_read[self.people[label]].sort()
+
+                    
         
             cv.imshow('Detected Face', img)
             if cv.waitKey(20) & 0xFF==ord('b'):
@@ -179,6 +187,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         capture.release()
         cv.destroyAllWindows()
         self.spreadSheetBtn.setEnabled(True)
+        print(self.faces_read)
 
 app = QtWidgets.QApplication(sys.argv)
 window = FacesRecognition()

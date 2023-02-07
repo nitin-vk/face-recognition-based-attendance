@@ -29,13 +29,19 @@ class SpreadSheetModule():
         last_empty_row=len(list(sheet.rows))
         #print(last_empty_row)
         for j in peoplePresent:
-            for i in range(2,last_empty_row+1):
-                if sheet.cell(row=i,column=2).value==j:
-                    sheet.cell(row=i,column=3).value='P'
-                    sheet.cell(row=i,column=4).value=sheet.cell(row=i,column=4).value+1
-                    break
-                else:
-                    sheet.cell(row=i,column=3).value='A'
+            if (sum(peoplePresent[j])/len(peoplePresent[j]))<=55:
+                for i in range(2,last_empty_row+1):
+                    if sheet.cell(row=i,column=2).value==j:
+                        sheet.cell(row=i,column=3).value='P'
+                        sheet.cell(row=i,column=4).value=sheet.cell(row=i,column=4).value+1
+                        break
+                    
+            elif (sum(peoplePresent[j])/len(peoplePresent[j]))>55:
+                for i in range(2,last_empty_row+1):
+                    if sheet.cell(row=i,column=2).value==j:
+                        sheet.cell(row=i,column=3).value='A'
+                        break
+                
                     
         wb_obj.save(dir)
 
