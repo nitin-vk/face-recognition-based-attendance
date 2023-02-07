@@ -175,6 +175,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
                     self.faces_read[self.people[label]].sort()
                 else:
                     if confidence<self.faces_read[self.people[label]][9]:
+                        del self.faces_read[self.people[label]][9]
                         self.faces_read[self.people[label]].append(confidence)
                         self.faces_read[self.people[label]].sort()
 
