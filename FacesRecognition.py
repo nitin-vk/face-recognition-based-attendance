@@ -18,6 +18,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.yml_file=''
         self.haar_cascade=''
         self.ftp_dir=''
+        self.usn=[]
         self.people=[]
         self.faces_read={}
         self.afterSelectFrame.hide()
@@ -103,7 +104,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.spreadOkBtn.hide()
         self.spreadCancelBtn.hide()
         self.listWidget.hide()
-        spread=SpreadSheetModule(self.people)
+        spread=SpreadSheetModule(self.people,self.usn)
         mytext = self.sheetNameText.toPlainText()
         if mytext=='':
             QMessageBox.about(self, "ERROR", "ENTER THE FILE NAME")
@@ -140,7 +141,9 @@ class FacesRecognition(QtWidgets.QMainWindow):
         haar_cascade = cv.CascadeClassifier(r'C:\Users\Nitin V Kavya\Desktop\python\OpenCV\haar_face.xml')
         
         for i in os.listdir(dir):
-            self.people.append(i)
+            self.usn.append(i[0:10])
+            self.people.append(i[11:len(i)])
+        print(self.usn)
         print(self.people)
 
 
@@ -168,16 +171,16 @@ class FacesRecognition(QtWidgets.QMainWindow):
                 label, confidence = face_recognizer.predict(faces_roi)
                 print(f'Label = {self.people[label]} with a confidence of {confidence}')
 
-                cv.putText(img, str(self.people[label]), (20,20), cv.FONT_HERSHEY_COMPLEX, 1.0, (0,255,0), thickness=2)
-                self.faces_read.setdefault(self.people[label],[])
-                if len(self.faces_read[self.people[label]])<10:
-                    self.faces_read[self.people[label]].append(confidence)
-                    self.faces_read[self.people[label]].sort()
+                cv.putText(img, str(self.usn[label]+'-'+self.people[label]), (20,20), cv.FONT_HERSHEY_COMPLEX, 1.0, (0,255,0), thickness=2)
+                self.faces_read.setdefault(self.usn[label],[])
+                if len(self.faces_read[self.usn[label]])<10:
+                    self.faces_read[self.usn[label]].append(confidence)
+                    self.faces_read[self.usn[label]].sort()
                 else:
-                    if confidence<self.faces_read[self.people[label]][9]:
-                        del self.faces_read[self.people[label]][9]
-                        self.faces_read[self.people[label]].append(confidence)
-                        self.faces_read[self.people[label]].sort()
+                    if confidence<self.faces_read[self.usn[label]][9]:
+                        del self.faces_read[self.usn[label]][9]
+                        self.faces_read[self.usn[label]].append(confidence)
+                        self.faces_read[self.usn[label]].sort()
 
                     
         

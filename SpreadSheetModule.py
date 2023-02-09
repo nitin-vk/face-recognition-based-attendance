@@ -1,8 +1,9 @@
 import xlsxwriter
 import openpyxl
 class SpreadSheetModule():
-    def __init__(self,people):
+    def __init__(self,people,usn):
         self.people =people
+        self.usn=usn
 
     def createSpreadSheet(self,dir):
         workbook = xlsxwriter.Workbook(dir,{'in_memory':True})
@@ -16,6 +17,7 @@ class SpreadSheetModule():
         s=0
         r=1
         while s<len(self.people):
+            worksheet.write(r,0,self.usn[s])
             worksheet.write(r,1,self.people[s])
             worksheet.write(r,3,0)
             s+=1
@@ -33,7 +35,7 @@ class SpreadSheetModule():
         for j in peoplePresent:
             if (sum(peoplePresent[j])/len(peoplePresent[j]))<=55:
                 for i in range(2,last_empty_row+1):
-                    if sheet.cell(row=i,column=2).value==j:
+                    if sheet.cell(row=i,column=1).value==j:
                         sheet.cell(row=i,column=3).value='P'
                         sheet.cell(row=i,column=4).value=sheet.cell(row=i,column=4).value+1
                         break
