@@ -1,5 +1,10 @@
 import xlsxwriter
 import openpyxl
+import smtplib
+from datetime import datetime
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 class SpreadSheetModule():
     def __init__(self,people,usn):
         self.people =people
@@ -26,6 +31,13 @@ class SpreadSheetModule():
 
     def updateSpreadSheet(self,peoplePresent,dir):
         #print("from spreadsheet {}".format(peoplePresent))
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        fromaddr = 'nitinvkavya@gmail.com'
+        subject='JSSATEB ABSENT NOTIFICATION'
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        
         wb_obj=openpyxl.load_workbook(dir)
         sheet=wb_obj.active
         last_empty_row=len(list(sheet.rows))
@@ -42,9 +54,24 @@ class SpreadSheetModule():
         for i in range(2,last_empty_row+1):
             if sheet.cell(row=i,column=3).value=='':
                 sheet.cell(row=i,column=3).value='A'
-                
+                target=sheet.cell(row=i,column=5).value
+                msg = MIMEMultipart()
+                msg['From'] = fromaddr
+                msg['To'] = target
+                msg['Subject'] = subject
+                msg.attach(MIMEText("This mail is being sent by the management of JSSATEB. This is to inform that your child is absent for the class held at "+current_time))
                     
+                server = smtplib.SMTP('smtp.gmail.com', 587)
+                server.ehlo()
+                server.starttls()
+                server.ehlo()
+                server.login(fromaddr, 'kcbvynhcecoytire')
+                server.sendmail(fromaddr, target, msg.as_string())
+                server.quit()
         wb_obj.save(dir)
+
+        
+        
 
 
             
