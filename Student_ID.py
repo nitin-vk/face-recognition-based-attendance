@@ -3,6 +3,7 @@ import sys,os
 from PyQt5.QtWidgets import QFileDialog,QMessageBox
 import cv2 as cv
 from FaceDetectionModule import FaceDetectionModule
+from tk_id_card_main import TK_ID_CARD_MAIN
 
 class Student_ID(QtWidgets.QMainWindow):
     def __init__(self):
@@ -15,6 +16,7 @@ class Student_ID(QtWidgets.QMainWindow):
         self.yml_file=''
         self.people=[]
         self.faces_read={}
+        
 
     def selectCompiledFile(self):
         self.yml_file=QFileDialog.getOpenFileName(self, 'Open file', 
@@ -92,7 +94,16 @@ class Student_ID(QtWidgets.QMainWindow):
 
         capture.release()
         cv.destroyAllWindows()
-        print(self.faces_read)
+        #print(self.faces_read)
+        for i in self.faces_read.keys():
+            self.faces_read[i]=(sum(self.faces_read[i])/len(self.faces_read[i]))
+        #print(self.faces_read)
+        person_id = min(self.faces_read, key=self.faces_read.get)
+        print(person_id)
+        usn=person_id[0:10]
+        name=person_id[11:len(person_id)]
+        img_path=person_id
+        id_card=TK_ID_CARD_MAIN(usn,name,img_path)
 
 
 
