@@ -1,7 +1,7 @@
 import xlsxwriter
 import openpyxl
 import smtplib
-from datetime import datetime
+from datetime import datetime,date
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -33,6 +33,7 @@ class SpreadSheetModule():
         #print("from spreadsheet {}".format(peoplePresent))
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
+        date=date.today()
         fromaddr = 'nitinvkavya@gmail.com'
         subject='JSSATEB ABSENT NOTIFICATION'
         now = datetime.now()
@@ -59,7 +60,7 @@ class SpreadSheetModule():
                 msg['From'] = fromaddr
                 msg['To'] = target
                 msg['Subject'] = subject
-                msg.attach(MIMEText("This mail is being sent by the management of JSSATEB. This is to inform that your child is absent for the class held at "+current_time))
+                msg.attach(MIMEText("This mail is being sent by the management of JSSATEB. This is to inform that your child is absent for the class on "+date+" held at "+current_time))
                     
                 server = smtplib.SMTP('smtp.gmail.com', 587)
                 server.ehlo()
