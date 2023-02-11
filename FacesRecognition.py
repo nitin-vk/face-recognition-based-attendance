@@ -134,10 +134,10 @@ class FacesRecognition(QtWidgets.QMainWindow):
               QMessageBox.about(self, "ERROR", "SELECT THE TYPE OF VIDEO")
               return
         print("videotype is {}".format(videoType))
-        dir=r"C:\Users\Nitin V Kavya\Desktop\College\Final_Year_project\Final_Year\Faces\train"
+        dir=r"C:\Users\kkr13\OneDrive\Desktop\final year project\Final_Year\Faces\train"
         l=30
         t=7
-        haar_cascade = cv.CascadeClassifier(r'C:\Users\Nitin V Kavya\Desktop\python\OpenCV\haar_face.xml')
+        haar_cascade = cv.CascadeClassifier(r"C:\Users\kkr13\OneDrive\Desktop\final year project\Final_Year\haar_face.xml")
         
         for i in os.listdir(dir):
             self.people.append(i)
