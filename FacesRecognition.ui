@@ -130,13 +130,6 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
-     <widget class="QPushButton" name="downloadBtn">
-      <property name="text">
-       <string>DOWNLOAD</string>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QPushButton" name="recognizeBtn">
       <property name="text">
        <string>RECOGNIZE</string>

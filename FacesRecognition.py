@@ -22,7 +22,6 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.people=[]
         self.faces_read={}
         self.afterSelectFrame.hide()
-        self.downloadBtn.hide()
         self.recognizeBtn.hide()
         self.frame_4.hide()
         self.frame_5.hide()
@@ -61,11 +60,11 @@ class FacesRecognition(QtWidgets.QMainWindow):
         if self.yml_file!='':
             self.fileLocation.insertPlainText(yml_file)
         self.afterSelectFrame.show()
-        self.downloadBtn.show()
         self.spreadSheetBtn.show()
-        self.downloadBtn.setEnabled(False)
         self.spreadSheetBtn.setEnabled(False)
         self.recognizeBtn.show()
+       
+
 
     def recognizeFaces(self):
         self.videoTypeWindow.show()
@@ -85,6 +84,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.sheetNameText.show()
         self.spreadOkBtn.show()
         self.spreadCancelBtn.show()
+       
 
     def cancelSpread(self):
         self.frame_6.hide()
