@@ -31,6 +31,14 @@
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QPushButton" name="ftpBtn">
+      <property name="font">
+       <font>
+        <family>Cambria</family>
+        <weight>75</weight>
+        <italic>true</italic>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>FTP SERVER</string>
       </property>
@@ -38,6 +46,14 @@
     </item>
     <item>
      <widget class="QPushButton" name="localBtn">
+      <property name="font">
+       <font>
+        <family>Cambria</family>
+        <weight>75</weight>
+        <italic>true</italic>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>LOCAL FILES</string>
       </property>
