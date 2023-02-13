@@ -18,6 +18,8 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.yml_file=''
         self.haar_cascade=''
         self.ftp_dir=''
+        self.mytext=''
+        self.spread=''
         self.usn=[]
         self.people=[]
         self.faces_read={}
@@ -33,6 +35,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.spreadCancelBtn.hide()
         self.videoTypeWindow.hide()
         self.listWidget.hide()
+        self.sendMailBtn.hide()
         self.localBtn.clicked.connect(self.serachLocalFiles)
         self.recognizeBtn.clicked.connect(self.recognizeFaces)
         self.cancelBtn.clicked.connect(self.hideVideoTypeWindow)
@@ -42,7 +45,12 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.spreadOkBtn.clicked.connect(self.createSpreadSheet)
         self.spreadCancelBtn.clicked.connect(self.cancelSpread)
         self.ftpBtn.clicked.connect(self.ftpProcess)
+        self.sendMailBtn.clicked.connect(self.sendMail)
         
+
+    def sendMail(self):
+        self.spread.sendMail(self.mytext)
+        QMessageBox.about(self, "MAIL SENT", "MAIL SENT SUCCESSFULLY")
 
     def ftpProcess(self):
         mainobj=Main()
@@ -63,6 +71,8 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.spreadSheetBtn.show()
         self.spreadSheetBtn.setEnabled(False)
         self.recognizeBtn.show()
+        self.sendMailBtn.show()
+        self.sendMailBtn.setEnabled(False)
        
 
 
@@ -104,16 +114,17 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.spreadOkBtn.hide()
         self.spreadCancelBtn.hide()
         self.listWidget.hide()
-        spread=SpreadSheetModule(self.people,self.usn)
-        mytext = self.sheetNameText.toPlainText()
-        if mytext=='':
+        self.spread=SpreadSheetModule(self.people,self.usn)
+        self.mytext = self.sheetNameText.toPlainText()
+        if self.mytext=='':
             QMessageBox.about(self, "ERROR", "ENTER THE FILE NAME")
             return
-        mytext=mytext+'.xlsx'
-        isExist = os.path.exists(mytext)
+        self.mytext=self.mytext+'.xlsx'
+        isExist = os.path.exists(self.mytext)
         if isExist==False:
-            spread.createSpreadSheet(mytext)
-        spread.updateSpreadSheet(self.faces_read,mytext)
+            self.spread.createSpreadSheet(self.mytext)
+        self.spread.updateSpreadSheet(self.faces_read,self.mytext)
+        self.sendMailBtn.setEnabled(True)
 
 
     def startStreaming(self):
@@ -135,10 +146,10 @@ class FacesRecognition(QtWidgets.QMainWindow):
               QMessageBox.about(self, "ERROR", "SELECT THE TYPE OF VIDEO")
               return
         print("videotype is {}".format(videoType))
-        dir=r"C:\Users\kkr13\OneDrive\Desktop\final year project\Final_Year\Faces\train"
+        dir=r"C:\Users\Nitin V Kavya\Desktop\College\Final_Year_project\Final_Year\Faces\8CSEB"
         l=30
         t=7
-        haar_cascade = cv.CascadeClassifier(r"C:\Users\kkr13\OneDrive\Desktop\final year project\Final_Year\haar_face.xml")
+        haar_cascade = cv.CascadeClassifier(r"C:\Users\Nitin V Kavya\Desktop\College\Final_Year_project\Final_Year\haar_face.xml")
         
         for i in os.listdir(dir):
             self.usn.append(i[0:10])

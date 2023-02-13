@@ -143,6 +143,13 @@
       </property>
      </widget>
     </item>
+    <item>
+     <widget class="QPushButton" name="sendMailBtn">
+      <property name="text">
+       <string>SEND MAIL</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QListView" name="videoTypeWindow">

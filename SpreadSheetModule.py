@@ -30,14 +30,7 @@ class SpreadSheetModule():
         workbook.close()
 
     def updateSpreadSheet(self,peoplePresent,dir):
-        #print("from spreadsheet {}".format(peoplePresent))
-        now = datetime.now()
-        current_time = now.strftime("%H:%M:%S")
-        today=date.today()
-        fromaddr = 'kavyatintin@gmail.com'
-        subject='JSSATEB ABSENT NOTIFICATION'
-        now = datetime.now()
-        current_time = now.strftime("%H:%M:%S")
+        #print("from spreadsheet {}".format(peoplePresent
         
         wb_obj=openpyxl.load_workbook(dir)
         sheet=wb_obj.active
@@ -56,6 +49,21 @@ class SpreadSheetModule():
             if sheet.cell(row=i,column=3).value=='':
                 sheet.cell(row=i,column=3).value='A'
                 target=sheet.cell(row=i,column=5).value
+                
+        wb_obj.save(dir)
+
+    def sendMail(self,dir):
+        today=date.today()
+        fromaddr = 'kavyatintin@gmail.com'
+        subject='JSSATEB ABSENT NOTIFICATION'
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        wb_obj=openpyxl.load_workbook(dir)
+        sheet=wb_obj.active
+        last_empty_row=len(list(sheet.rows))
+        for i in range(2,last_empty_row+1):
+            if sheet.cell(row=i,column=3).value=='A':
+                target=sheet.cell(row=i,column=5).value
                 msg = MIMEMultipart()
                 msg['From'] = fromaddr
                 msg['To'] = target
@@ -69,7 +77,9 @@ class SpreadSheetModule():
                 server.login(fromaddr, 'qpyjnhpiadfzxzai')
                 server.sendmail(fromaddr, target, msg.as_string())
                 server.quit()
-        wb_obj.save(dir)
+        
+        
+
 
         
         
