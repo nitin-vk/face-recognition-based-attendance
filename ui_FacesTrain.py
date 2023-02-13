@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\kkr13\OneDrive\Desktop\final year project\Final_Year\FacesTrain.ui'
+# Form implementation generated from reading ui file 'c:\Users\kkr13\OneDrive\Desktop\final year project\face-recognition-based-attendance\FacesTrain.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -25,12 +25,30 @@ class Ui_Form(object):
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.frame)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.selectXml = QtWidgets.QPushButton(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Cambria")
+        font.setBold(True)
+        font.setItalic(True)
+        font.setWeight(75)
+        self.selectXml.setFont(font)
         self.selectXml.setObjectName("selectXml")
         self.horizontalLayout.addWidget(self.selectXml)
         self.trainBtn = QtWidgets.QPushButton(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Cambria")
+        font.setBold(True)
+        font.setItalic(True)
+        font.setWeight(75)
+        self.trainBtn.setFont(font)
         self.trainBtn.setObjectName("trainBtn")
         self.horizontalLayout.addWidget(self.trainBtn)
         self.selectDir = QtWidgets.QPushButton(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Cambria")
+        font.setBold(True)
+        font.setItalic(True)
+        font.setWeight(75)
+        self.selectDir.setFont(font)
         self.selectDir.setObjectName("selectDir")
         self.horizontalLayout.addWidget(self.selectDir)
         self.progressFrame = QtWidgets.QFrame(Form)
@@ -48,10 +66,16 @@ class Ui_Form(object):
         self.doneFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.doneFrame.setObjectName("doneFrame")
         self.trainingDone = QtWidgets.QTextEdit(self.doneFrame)
-        self.trainingDone.setGeometry(QtCore.QRect(200, 0, 121, 31))
+        self.trainingDone.setGeometry(QtCore.QRect(200, 0, 151, 31))
+        font = QtGui.QFont()
+        font.setFamily("Cambria")
+        font.setBold(True)
+        font.setItalic(True)
+        font.setWeight(75)
+        self.trainingDone.setFont(font)
         self.trainingDone.setObjectName("trainingDone")
         self.label = QtWidgets.QLabel(Form)
-        self.label.setGeometry(QtCore.QRect(230, 70, 161, 111))
+        self.label.setGeometry(QtCore.QRect(230, 70, 161, 101))
         self.label.setMinimumSize(QtCore.QSize(161, 0))
         self.label.setText("")
         self.label.setPixmap(QtGui.QPixmap(":/images/images/pyhton icon.png"))
@@ -68,11 +92,8 @@ class Ui_Form(object):
         self.trainBtn.setText(_translate("Form", "TRAIN"))
         self.selectDir.setText(_translate("Form", "SELECT DIR"))
         self.trainingDone.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"hr { height: 1px; border-width: 0; }\n"
-"li.unchecked::marker { content: \"\\2610\"; }\n"
-"li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:\'Segoe UI\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:10pt;\">Training Done</span></p></body></html>"))
-import pyqt_design
+"</style></head><body style=\" font-family:\'Cambria\'; font-size:8pt; font-weight:600; font-style:italic;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:9pt; color:#130dc8;\">TRAINING DONE</span></p></body></html>"))
+import resource_from_pyqt_rc
