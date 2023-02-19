@@ -16,10 +16,10 @@
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>110</y>
-     <width>217</width>
-     <height>52</height>
+     <x>70</x>
+     <y>100</y>
+     <width>291</width>
+     <height>81</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -31,6 +31,12 @@
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QPushButton" name="ftpBtn">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="font">
        <font>
         <family>Cambria</family>
@@ -46,6 +52,12 @@
     </item>
     <item>
      <widget class="QPushButton" name="localBtn">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="font">
        <font>
         <family>Cambria</family>
@@ -65,7 +77,7 @@
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>50</y>
+     <y>60</y>
      <width>281</width>
      <height>31</height>
     </rect>
@@ -79,8 +91,8 @@
    <widget class="QLabel" name="selectLabel">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>-1</y>
+      <x>10</x>
+      <y>0</y>
       <width>281</width>
       <height>21</height>
      </rect>
