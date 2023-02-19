@@ -16,14 +16,11 @@
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>100</y>
-     <width>291</width>
-     <height>81</height>
+     <x>90</x>
+     <y>111</y>
+     <width>261</width>
+     <height>71</height>
     </rect>
-   </property>
-   <property name="cursor">
-    <cursorShape>ForbiddenCursor</cursorShape>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
@@ -80,7 +77,7 @@
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>60</y>
+     <y>50</y>
      <width>281</width>
      <height>31</height>
     </rect>
@@ -94,8 +91,8 @@
    <widget class="QLabel" name="selectLabel">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>0</y>
+      <x>20</x>
+      <y>10</y>
       <width>281</width>
       <height>21</height>
      </rect>
