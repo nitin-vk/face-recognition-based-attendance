@@ -17,6 +17,7 @@ class Ui_Form(object):
         Form.resize(394, 300)
         self.frame = QtWidgets.QFrame(Form)
         self.frame.setGeometry(QtCore.QRect(70, 100, 291, 81))
+        self.frame.setCursor(QtGui.QCursor(QtCore.Qt.ForbiddenCursor))
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
