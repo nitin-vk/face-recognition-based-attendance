@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>394</width>
     <height>300</height>
    </rect>
   </property>
@@ -17,9 +17,9 @@
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>110</y>
-     <width>217</width>
-     <height>52</height>
+     <y>111</y>
+     <width>261</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -31,6 +31,20 @@
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QPushButton" name="ftpBtn">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Cambria</family>
+        <weight>75</weight>
+        <italic>true</italic>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>FTP SERVER</string>
       </property>
@@ -38,6 +52,20 @@
     </item>
     <item>
      <widget class="QPushButton" name="localBtn">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Cambria</family>
+        <weight>75</weight>
+        <italic>true</italic>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>LOCAL FILES</string>
       </property>
@@ -50,8 +78,8 @@
     <rect>
      <x>70</x>
      <y>50</y>
-     <width>271</width>
-     <height>51</height>
+     <width>281</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -63,14 +91,23 @@
    <widget class="QLabel" name="selectLabel">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>20</y>
-      <width>211</width>
-      <height>20</height>
+      <x>20</x>
+      <y>10</y>
+      <width>281</width>
+      <height>21</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
-     <string>SELECT COMPILED FILE FROM</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#1793c8;&quot;&gt;SELECT COMPILED FILE FROM&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
   </widget>
@@ -98,8 +135,17 @@
       <height>16</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Calibri</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
-     <string>SELECTED FILE:</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#1a2cc8;&quot;&gt;SELECTED FILE:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QPlainTextEdit" name="fileLocation">
@@ -131,6 +177,12 @@
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
      <widget class="QPushButton" name="recognizeBtn">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>RECOGNIZE</string>
       </property>
@@ -138,6 +190,12 @@
     </item>
     <item>
      <widget class="QPushButton" name="spreadSheetBtn">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>UPDATE SHEET</string>
       </property>
@@ -180,6 +238,12 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QRadioButton" name="liveStreamBtn">
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>LIVE STREAM</string>
       </property>
@@ -187,6 +251,12 @@
     </item>
     <item>
      <widget class="QRadioButton" name="capturedVideoBtn">
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>CAPTURED VIDEO</string>
       </property>
@@ -239,7 +309,7 @@
   <widget class="QListWidget" name="listWidget">
    <property name="geometry">
     <rect>
-     <x>100</x>
+     <x>90</x>
      <y>100</y>
      <width>241</width>
      <height>141</height>
@@ -269,6 +339,15 @@
       <width>191</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Calibri</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>ENTER THE SHEET FILENAME</string>
@@ -303,6 +382,12 @@
    <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
      <widget class="QPushButton" name="spreadOkBtn">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>OK</string>
       </property>
@@ -310,6 +395,12 @@
     </item>
     <item>
      <widget class="QPushButton" name="spreadCancelBtn">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>CANCEL</string>
       </property>

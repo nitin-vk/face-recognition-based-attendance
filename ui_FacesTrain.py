@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\kkr13\OneDrive\Desktop\final year project\Final_Year\FacesTrain.ui'
+# Form implementation generated from reading ui file 'c:\Users\kkr13\OneDrive\Desktop\final year project\face-recognition-based-attendance\FacesTrain.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #

@@ -140,51 +140,60 @@ class FacesTrain(QtWidgets.QMainWindow):
 
 app = QtWidgets.QApplication(sys.argv)
 style="""
-
-
+QPushButton:open { /* when the button has its menu open */
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+QPushButton::menu-indicator {
+    image: url(menu_indicator.png);
+    subcontrol-origin: padding;
+    subcontrol-position: bottom right;
+}
+QPushButton::menu-indicator:pressed, QPushButton::menu-indicator:open {
+    position: relative;
+    top: 2px; left: 2px; /* shift the arrow by 2 px */
+}
+QPushButton {
+    border: 2px solid #8f8f91;
+    border-radius:  8px;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #f6f7fa, stop: 1 #dadbde);
+    min-width: 80px;
+}
+QPushButton:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+QPushButton:flat {
+    border: none; /* no border for a flat push button */
+}
+QPushButton:default {
+    border-color: navy; /* make the default button prominent */
+}
 QPushButton:hover{
         background: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 :   1, stop :   0.0 #ffd9aa,
                 stop :   0.5 #ffbb6e, stop :   0.55 #feae42, stop :   1.0 #fedb74);
 }
-
-QPushButton {
-        border: 1px solid #6593cf;
-        border-radius: 2px;
-        padding: 5px 15px 2px 5px;
-        background: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 :   1, stop :   0.0 #f5f9ff,
-                stop :   0.5 #c7dfff, stop :   0.55 #afd2ff, stop :   1.0 #c0dbff);
-        color: #006aff;
-        font: bold large "Arial";
-        height: 30px;
+QPushButton::menu-indicator {
+    image: url(menu_indicator.png);
+    subcontrol-origin: padding;
+    subcontrol-position: bottom right;
 }
-
-
-
-
-QPushButton:pressed {
-        background: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 :   1, stop :   0.0 #c0dbff,
-        stop :   0.5 #cfd26f, stop :   0.55 #c7df6f, stop :   1.0 #f5f9ff);
-        padding-top: 2px;
-        padding-left: 3px;
-
+QProgressBar {
+    border: 2px solid #2196F3;
+    border-radius: 5px;
+    background-color: #E0E0E0;
 }
-
-
-QPushButton:on {
-        background: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 :   1, stop :   0.0 #5AA72D,
-        stop :   0.5 #B3E296, stop :   0.55 #B3E296, stop :   1.0 #f5f9ff);
-        padding-top: 2px;
-        padding-left: 3px;
+QProgressBar::chunk {
+    background-color: #CD96CD;
+    width: 10px; 
+    margin: 0.5px;
 }
-
-QPushButton:disabled {
-        background: transparent #e5e9ee;
-        padding-top: 2px;        
-        padding-left: 3px;
-        color: black;
+QWidget{
+    background-color:#E0E0E0;
 }
-
 """
+
 app.setStyleSheet(style)
 window = FacesTrain()
 app.exec_()
