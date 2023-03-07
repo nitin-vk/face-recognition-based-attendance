@@ -137,11 +137,14 @@ class FacesTrain(QtWidgets.QMainWindow):
         
 
                 gray=cv.cvtColor(img_array,cv.COLOR_BGR2GRAY)
-                face_rect=haar_cascade.detectMultiScale(gray,scaleFactor=1.1)
+                equalized = cv.equalizeHist(gray)
+                blurred = cv.GaussianBlur(equalized, (5, 5), 0)
+                face_rect=haar_cascade.detectMultiScale(blurred,scaleFactor=1.1,minNeighbors=5)
                 for (a,b,c,d) in face_rect:
                     face_boi=gray[b:b+d,a:a+c]
                     features.append(face_boi)
                     labels.append(label)
+                    
     
 
 
