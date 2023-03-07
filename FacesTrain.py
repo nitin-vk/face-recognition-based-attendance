@@ -144,6 +144,7 @@ class FacesTrain(QtWidgets.QMainWindow):
                 closed_image = cv.morphologyEx(thresholded_image, cv.MORPH_CLOSE, kernel)
                 face_rect=haar_cascade.detectMultiScale(blurred,scaleFactor=1.1,minNeighbors=5)
                 normalized_image = cv.normalize(closed_image.astype(np.float32), None, 0, 1, cv.NORM_MINMAX)
+                cv.imshow('normalized_image',normalized_image)
                 for (a,b,c,d) in face_rect:
                     face_boi=gray[b:b+d,a:a+c]
                     features.append(face_boi)
