@@ -64,27 +64,35 @@ class FacesTrain(QtWidgets.QMainWindow):
         features=np.array(features,dtype='object')
         labels=np.array(labels)
 
-        face=cv.face.LBPHFaceRecognizer_create(radius=1, neighbors=8, grid_x=8, grid_y=8)
+        augmented_images = []
+        augmented_labels = []
+        for image, label in zip(features, labels):
+            augmented_images.append(image)
+            augmented_labels.append(label)
+            for angle in range(-10, 10, 5):
+                M = cv.getRotationMatrix2D((100, 100), angle, 1)
+                rotated_image = cv.warpAffine(image, M, (200, 200))
+                augmented_images.append(rotated_image)
+                augmented_labels.append(label)
+        features = np.array(augmented_images,dtype='object')
+        labels = np.array(augmented_labels)
+
+        '''pca=cv.PCACompute(features.reshape(features.shape[0], -1), mean=None,n_components=2,maxComponents=100)[1]
+        features = pca.transform(features.reshape(features.shape[0], -1))
+
+        transformed_features=[]
+        for image in features:
+            transformed_image = pca.transpose().dot((image.reshape(-1, 1) - pca.mean_.reshape(-1, 1))).reshape(-1)
+            transformed_features.append(transformed_image)
+        transformed_features = np.array(transformed_features)'''
+
+        face=cv.face.LBPHFaceRecognizer_create(radius=2, neighbors=8)
         face.train(features,labels)
 
-        '''options = QtWidgets.QFileDialog.Options()
-        #options |= QtWidgets.QFileDialog.DontUseNativeDialog
-        fileName1, _ = QtWidgets.QFileDialog.getSaveFileName(self, 
-            "Save File", "", "YML files(*.yml)", options = options)
+        
         
 
         
-
-        options = QtWidgets.QFileDialog.Options()
-        #options |= QtWidgets.QFileDialog.DontUseNativeDialog
-        fileName2, _ = QtWidgets.QFileDialog.getSaveFileName(self, 
-            "Save File", "", "NPY files(*.npy)", options = options)
-        
-
-        options = QtWidgets.QFileDialog.Options()
-        #options |= QtWidgets.QFileDialog.DontUseNativeDialog
-        fileName3, _ = QtWidgets.QFileDialog.getSaveFileName(self, 
-            "Save File", "", "NPY files(*.npy)", options = options)'''
        
         folderName=self.ftp_dir
         if os.path.exists('D:/Compiled Files/'+folderName)==False:
@@ -95,32 +103,7 @@ class FacesTrain(QtWidgets.QMainWindow):
         np.save('D:/Compiled Files/'+folderName+'/features', features)
         np.save('D:/Compiled Files/'+folderName+'/labels', labels)
 
-        '''ftp = FTP(host="192.168.0.104");
-        ftp.login(user="Nitin V Kavya", passwd="nitinvkavya");
-        folderName = self.ftp_dir
-        if folderName not in ftp.nlst():
-            ftp.mkd(folderName)
-        ftp.quit()'''
-        
-        '''session = ftplib.FTP('192.168.0.104','Nitin V Kavya','nitinvkavya')
-        session.cwd(folderName)
-
-        file = open(fileName1,'rb')                  # file to send
-        session.storbinary('STOR '+fileName1[fileName1.rindex('/')+1:len(fileName1)], file)     # send the file
-        file.close()
-        
-        file = open(fileName2,'rb')                  # file to send
-        session.storbinary('STOR '+fileName2[fileName2.rindex('/')+1:len(fileName2)], file)     # send the file
-        file.close()   
-        
-        file = open(fileName3,'rb')                  # file to send
-        session.storbinary('STOR '+fileName3[fileName3.rindex('/')+1:len(fileName3)], file)     # send the file
-        file.close()   
-                                           # close file and FTP
-        session.quit()
-        #os.remove(fileName1)
-        #os.remove(fileName2)
-        #os.remove(fileName3)'''    
+          
 
     def create_train(self,dir,people,features,labels,haar_cascade):
         for person in people:
