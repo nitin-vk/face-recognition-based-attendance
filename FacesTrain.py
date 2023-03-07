@@ -128,7 +128,7 @@ class FacesTrain(QtWidgets.QMainWindow):
                 normalized_image = cv.normalize(closed_image.astype(np.float32), None, 0, 1, cv.NORM_MINMAX)
                 face_rect=haar_cascade.detectMultiScale(gray,scaleFactor=1.1,minNeighbors=5)
                 for (a,b,c,d) in face_rect:
-                    face_boi=normalized_image[b:b+d,a:a+c]
+                    face_boi=gray[b:b+d,a:a+c]
                     features.append(face_boi)
                     labels.append(label)
                     
