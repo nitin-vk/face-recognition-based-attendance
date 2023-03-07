@@ -158,7 +158,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         print(self.people)
 
 
-        face_recognizer = cv.face.LBPHFaceRecognizer_create(radius=1, neighbors=2)
+        face_recognizer = cv.face.LBPHFaceRecognizer_create(radius=1, neighbors=4)
         face_recognizer.read(self.yml_file)
 
         capture=cv.VideoCapture(videoType)
