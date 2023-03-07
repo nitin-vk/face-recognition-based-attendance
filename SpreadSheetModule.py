@@ -18,6 +18,9 @@ class SpreadSheetModule():
         worksheet.write('B1', 'Name')
         worksheet.write('C1', 'Status')
         worksheet.write('D1', 'Total')
+        worksheet.write('E1','Mobile Number')
+        worksheet.write('F1',"Parent's Email ID")
+        worksheet.write('G1',"Parent's Mobile Number")
 
         s=0
         r=1
@@ -63,12 +66,12 @@ class SpreadSheetModule():
         last_empty_row=len(list(sheet.rows))
         for i in range(2,last_empty_row+1):
             if sheet.cell(row=i,column=3).value=='A':
-                target=sheet.cell(row=i,column=5).value
+                target=sheet.cell(row=i,column=6).value
                 msg = MIMEMultipart()
                 msg['From'] = fromaddr
                 msg['To'] = target
                 msg['Subject'] = subject
-                msg.attach(MIMEText("This mail is being sent by the management of JSSATEB. This is to inform that your child is absent for the class on "+str(today)+" held at "+current_time))
+                msg.attach(MIMEText("This mail is being sent by the management of JSSATEB. This is to inform that your child "+str(sheet.cell(row=i,column=2).value)+" with usn "+str(sheet.cell(row=i,column=1).value)+" is absent for the class on "+str(today)+" held at "+current_time))
                     
                 server = smtplib.SMTP('smtp.gmail.com', 587)
                 server.ehlo()
