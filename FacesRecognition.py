@@ -138,7 +138,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
             videoType=0
         elif self.capturedVideoBtn.isChecked():
             videoType=QFileDialog.getOpenFileName(self, 'Open file', 
-            'c:\\',"VIDEO FILES (*.avi)")
+            'c:\\',"VIDEO FILES (*.avi *.mp4)")
             videoType=str(videoType)
             pos=videoType.index(',')
             videoType=videoType[2:pos-1]
