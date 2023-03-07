@@ -169,15 +169,20 @@ class FacesRecognition(QtWidgets.QMainWindow):
 
             img,boxes=f.findFace(img)
             gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-    
+            equalized = cv.equalizeHist(gray)
+            blurred = cv.GaussianBlur(equalized, (5, 5), 0)
+            thresholded_image = cv.threshold(blurred, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)[1]
+            kernel = cv.getStructuringElement(cv.MORPH_RECT, (3,3))
+            closed_image = cv.morphologyEx(thresholded_image, cv.MORPH_CLOSE, kernel)
+            normalized_image = cv.normalize(closed_image.astype(np.float32), None, 0, 1, cv.NORM_MINMAX)
 
 
-            faces_rect = haar_cascade.detectMultiScale(gray, 1.1, 4)
+            faces_rect = haar_cascade.detectMultiScale(normalized_image, 1.1, 4)
 
             for (x,y,w,h) in faces_rect:
         
                 x1,y1=x+w,y+h
-                faces_roi = gray[y:y+h,x:x+w]
+                faces_roi = normalized_image[y:y+h,x:x+w]
 
                 label, confidence = face_recognizer.predict(faces_roi)
                 print(f'Label = {self.people[label]} with a confidence of {confidence}')
