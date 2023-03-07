@@ -177,7 +177,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
             normalized_image = cv.normalize(closed_image.astype(np.float32), None, 0, 1, cv.NORM_MINMAX)
 
 
-            faces_rect = haar_cascade.detectMultiScale(normalized_image, 1.1, 4)
+            faces_rect = haar_cascade.detectMultiScale(gray, 1.1, 4)
 
             for (x,y,w,h) in faces_rect:
         
