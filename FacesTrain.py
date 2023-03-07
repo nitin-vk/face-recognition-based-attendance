@@ -74,7 +74,7 @@ class FacesTrain(QtWidgets.QMainWindow):
             transformed_features.append(transformed_image)
         transformed_features = np.array(transformed_features)'''
 
-        face=cv.face.LBPHFaceRecognizer_create(radius=2, neighbors=2)
+        face=cv.face.LBPHFaceRecognizer_create(radius=2, neighbors=4)
         face.train(features,labels)
 
         
