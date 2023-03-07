@@ -2,7 +2,7 @@ import os
 import numpy as np
 import cv2 as cv
 from FaceDetectionModule import FaceDetectionModule
-dir=r"C:\Users\Nitin V Kavya\Desktop\College\Final_Year_project\Final_Year\Faces\train"
+dir=r"D:\Faces\8CSEB"
 l=30
 t=7
 haar_cascade = cv.CascadeClassifier(r'C:\Users\Nitin V Kavya\Desktop\python\OpenCV\haar_face.xml')
