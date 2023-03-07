@@ -149,7 +149,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         dir=r"D:\Faces\8CSEB"
         l=30
         t=7
-        haar_cascade = cv.CascadeClassifier(r"C:\Users\Nitin V Kavya\Desktop\College\Final_Year_project\Final_Year\haar_face.xml")
+        haar_cascade = cv.CascadeClassifier(r"C:\Users\Nitin V Kavya\Desktop\College\Final_Year_project\Final_Year\haar_cascade_files\data\haarcascades\haarcascade_frontalcatface.xml")
         
         for i in os.listdir(dir):
             self.usn.append(i[0:10])
