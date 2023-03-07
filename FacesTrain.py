@@ -64,18 +64,6 @@ class FacesTrain(QtWidgets.QMainWindow):
         features=np.array(features,dtype='object')
         labels=np.array(labels)
 
-        augmented_images = []
-        augmented_labels = []
-        for image, label in zip(features, labels):
-            augmented_images.append(image)
-            augmented_labels.append(label)
-            for angle in range(-10, 10, 5):
-                M = cv.getRotationMatrix2D((100, 100), angle, 1)
-                rotated_image = cv.warpAffine(image, M, (200, 200))
-                augmented_images.append(rotated_image)
-                augmented_labels.append(label)
-        features = np.array(augmented_images,dtype='object')
-        labels = np.array(augmented_labels)
 
         '''pca=cv.PCACompute(features.reshape(features.shape[0], -1), mean=None,n_components=2,maxComponents=100)[1]
         features = pca.transform(features.reshape(features.shape[0], -1))
@@ -120,12 +108,6 @@ class FacesTrain(QtWidgets.QMainWindow):
         
 
                 gray=cv.cvtColor(img_array,cv.COLOR_BGR2GRAY)
-                equalized = cv.equalizeHist(gray)
-                blurred = cv.GaussianBlur(equalized, (5, 5), 0)
-                thresholded_image = cv.threshold(blurred, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)[1]
-                kernel = cv.getStructuringElement(cv.MORPH_RECT, (3,3))
-                closed_image = cv.morphologyEx(thresholded_image, cv.MORPH_CLOSE, kernel)
-                normalized_image = cv.normalize(closed_image.astype(np.float32), None, 0, 1, cv.NORM_MINMAX)
                 face_rect=haar_cascade.detectMultiScale(gray,scaleFactor=1.1,minNeighbors=5)
                 for (a,b,c,d) in face_rect:
                     face_boi=gray[b:b+d,a:a+c]
