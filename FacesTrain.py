@@ -142,11 +142,10 @@ class FacesTrain(QtWidgets.QMainWindow):
                 thresholded_image = cv.threshold(blurred, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)[1]
                 kernel = cv.getStructuringElement(cv.MORPH_RECT, (3,3))
                 closed_image = cv.morphologyEx(thresholded_image, cv.MORPH_CLOSE, kernel)
-                face_rect=haar_cascade.detectMultiScale(blurred,scaleFactor=1.1,minNeighbors=5)
                 normalized_image = cv.normalize(closed_image.astype(np.float32), None, 0, 1, cv.NORM_MINMAX)
-                cv.imshow('normalized_image',normalized_image)
+                face_rect=haar_cascade.detectMultiScale(normalized_image,scaleFactor=1.1,minNeighbors=5)
                 for (a,b,c,d) in face_rect:
-                    face_boi=gray[b:b+d,a:a+c]
+                    face_boi=normalized_image[b:b+d,a:a+c]
                     features.append(face_boi)
                     labels.append(label)
                     
