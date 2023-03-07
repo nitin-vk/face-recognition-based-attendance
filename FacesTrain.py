@@ -64,7 +64,7 @@ class FacesTrain(QtWidgets.QMainWindow):
         features=np.array(features,dtype='object')
         labels=np.array(labels)
 
-        face=cv.face.LBPHFaceRecognizer_create()
+        face=cv.face.LBPHFaceRecognizer_create(radius=1, neighbors=8, grid_x=8, grid_y=8)
         face.train(features,labels)
 
         '''options = QtWidgets.QFileDialog.Options()
@@ -120,7 +120,7 @@ class FacesTrain(QtWidgets.QMainWindow):
         session.quit()
         #os.remove(fileName1)
         #os.remove(fileName2)
-        #os.remove(fileName3)'''
+        #os.remove(fileName3)'''    
 
     def create_train(self,dir,people,features,labels,haar_cascade):
         for person in people:
@@ -137,7 +137,7 @@ class FacesTrain(QtWidgets.QMainWindow):
         
 
                 gray=cv.cvtColor(img_array,cv.COLOR_BGR2GRAY)
-                face_rect=haar_cascade.detectMultiScale(gray,scaleFactor=1.1,minNeighbors=3,radius=1, neighbors=8, grid_x=8, grid_y=8)
+                face_rect=haar_cascade.detectMultiScale(gray,scaleFactor=1.1)
                 for (a,b,c,d) in face_rect:
                     face_boi=gray[b:b+d,a:a+c]
                     features.append(face_boi)
