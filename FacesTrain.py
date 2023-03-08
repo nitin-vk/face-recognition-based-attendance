@@ -63,25 +63,8 @@ class FacesTrain(QtWidgets.QMainWindow):
         self.doneFrame.show()
         features=np.array(features,dtype='object')
         labels=np.array(labels)
-
-
-        '''pca=cv.PCACompute(features.reshape(features.shape[0], -1), mean=None,n_components=2,maxComponents=100)[1]
-        features = pca.transform(features.reshape(features.shape[0], -1))
-
-        transformed_features=[]
-        for image in features:
-            transformed_image = pca.transpose().dot((image.reshape(-1, 1) - pca.mean_.reshape(-1, 1))).reshape(-1)
-            transformed_features.append(transformed_image)
-        transformed_features = np.array(transformed_features)'''
-
         face=cv.face.LBPHFaceRecognizer_create(radius=1, neighbors=4)
         face.train(features,labels)
-
-        
-        
-
-        
-       
         folderName=self.ftp_dir
         if os.path.exists('D:/Compiled Files/'+folderName)==False:
             os.mkdir('D:/Compiled Files/'+folderName)
