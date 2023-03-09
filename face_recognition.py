@@ -16,7 +16,7 @@ print(people)
 # features = np.load('features.npy', allow_pickle=True)
 # labels = np.load('labels.npy')
 
-face_recognizer = cv.face.LBPHFaceRecognizer_create()
+face_recognizer = cv.face.LBPHFaceRecognizer_create(radius=1,neighbors=4)
 face_recognizer.read('face_trained.yml')
 
 capture=cv.VideoCapture(0)

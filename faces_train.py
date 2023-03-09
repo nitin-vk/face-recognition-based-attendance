@@ -35,7 +35,7 @@ print("Training Done")
 features=np.array(features,dtype='object')
 labels=np.array(labels)
 
-face=cv.face.LBPHFaceRecognizer_create()
+face=cv.face.LBPHFaceRecognizer_create(radius=1,neighbors=4)
 face.train(features,labels)
 
 face.save('face_trained.yml')
