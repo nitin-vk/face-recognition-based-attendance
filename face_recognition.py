@@ -2,10 +2,14 @@ import os
 import numpy as np
 import cv2 as cv
 from FaceDetectionModule import FaceDetectionModule
-dir=r"D:\Faces\8CSEB"
+#dir=r"D:\Faces\8CSEB"
+#C:\Users\kkr13\OneDrive\Desktop\images
+dir=r'C:\Users\kkr13\OneDrive\Desktop\images'
+
 l=30
 t=7
-haar_cascade = cv.CascadeClassifier(r'C:\Users\Nitin V Kavya\Desktop\python\OpenCV\haar_face.xml')
+#kiran_path='C:\Users\kkr13\OneDrive\Desktop\final year project\face-recognition-based-attendance\haar_face.xml'
+haar_cascade = cv.CascadeClassifier(r'C:\Users\kkr13\OneDrive\Desktop\final year project\face-recognition-based-attendance\haar_face.xml')
 
 #people = ['Ben Afflek', 'Elton John', 'Jerry Seinfield', 'Madonna', 'Mindy Kaling', 'Nitin']
 people = []
