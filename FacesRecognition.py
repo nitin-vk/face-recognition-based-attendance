@@ -178,7 +178,6 @@ class FacesRecognition(QtWidgets.QMainWindow):
         
                 x1,y1=x+w,y+h
                 faces_roi = gray[y:y+h,x:x+w]
-
                 label, confidence = face_recognizer.predict(faces_roi)
                 print(f'Label = {self.people[label]} with a confidence of {confidence}')
 
