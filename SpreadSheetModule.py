@@ -28,6 +28,7 @@ class SpreadSheetModule():
             worksheet.write(r,0,self.usn[s])
             worksheet.write(r,1,self.people[s])
             worksheet.write(r,3,0)
+            worksheet.write(r,5,'nitinvkavya@gmail.com')
             s+=1
             r+=1
         workbook.close()
