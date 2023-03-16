@@ -3,7 +3,7 @@ import cv2 as cv
 import numpy as np
 dir=r"D:\Faces\8CSEB"
 people=[]
-haar_cascade=cv.CascadeClassifier(r"C:\Users\Nitin V Kavya\Desktop\python\OpenCV\haar_face.xml")
+haar_cascade=cv.CascadeClassifier(r"C:\Users\Nitin V Kavya\Desktop\College\Final_Year_project\Final_Year\haar_cascade_files\data\haarcascades\haarcascade_frontalcatface.xml")
 for i in os.listdir(dir):
     people.append(i)
 print(people)
