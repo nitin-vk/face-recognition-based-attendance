@@ -63,7 +63,7 @@ class FacesTrain(QtWidgets.QMainWindow):
         self.doneFrame.show()
         features=np.array(features,dtype='object')
         labels=np.array(labels)
-        face=cv.face.LBPHFaceRecognizer_create()
+        face=cv.face.LBPHFaceRecognizer_create(radius=1,neighbors=8)
         face.train(features,labels)
         folderName=self.ftp_dir
         if os.path.exists('D:/Compiled Files/'+folderName)==False:
