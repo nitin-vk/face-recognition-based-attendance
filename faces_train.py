@@ -23,7 +23,7 @@ def create_train():
         
 
             gray=cv.cvtColor(img_array,cv.COLOR_BGR2GRAY)
-            face_rect=haar_cascade.detectMultiScale(gray,scaleFactor=1.1,minNeighbors=3)
+            face_rect=haar_cascade.detectMultiScale(gray,scaleFactor=1.1,minNeighbors=4)
             for (a,b,c,d) in face_rect:
                 face_boi=gray[b:b+d,a:a+c]
                 features.append(face_boi)
