@@ -47,8 +47,8 @@ class Student_ID(QtWidgets.QMainWindow):
         videoType=0
         l=30
         t=7
-        dir=r"C:\Users\Nitin V Kavya\Desktop\College\Final_Year_project\Final_Year\Faces\train"
-        haar_cascade = cv.CascadeClassifier(r'C:\Users\Nitin V Kavya\Desktop\python\OpenCV\haar_face.xml')
+        dir=r"D:\Faces\8CSEB"
+        haar_cascade = cv.CascadeClassifier(r"C:\Users\Nitin V Kavya\Desktop\College\Final_Year_project\Final_Year\haar_cascade_files\data\haarcascades\haarcascade_frontalcatface.xml")
         face_recognizer = cv.face.LBPHFaceRecognizer_create()
         face_recognizer.read(self.yml_file)
         for i in os.listdir(dir):
