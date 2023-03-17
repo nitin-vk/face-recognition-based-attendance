@@ -1,70 +1,76 @@
-import os
+import face_recognition
 import numpy as np
-import cv2 as cv
-from FaceDetectionModule import FaceDetectionModule
-#dir=r"D:\Faces\8CSEB"
-#C:\Users\kkr13\OneDrive\Desktop\images
-dir=r"D:\Faces\8CSEB"
+import cv2
+import os
+import pickle
 
-l=30
-t=7
-#kiran_path='C:\Users\kkr13\OneDrive\Desktop\final year project\face-recognition-based-attendance\haar_face.xml'
-haar_cascade = cv.CascadeClassifier(r"C:\Users\Nitin V Kavya\Desktop\College\Final_Year_project\Final_Year\haar_cascade_files\data\haarcascades\haarcascade_frontalcatface.xml")
+with open("encodings.txt", "rb") as fp:
+    known_face_encodings, known_face_names = pickle.load(fp)
 
-#people = ['Ben Afflek', 'Elton John', 'Jerry Seinfield', 'Madonna', 'Mindy Kaling', 'Nitin']
-people = []
-faces_read={}
-for i in os.listdir(dir):
-    people.append(i)
-print(people)
-# features = np.load('features.npy', allow_pickle=True)
-# labels = np.load('labels.npy')
+face_locations = []
+face_encodings = []
+names=[]
+video = cv2.VideoCapture(0)
+while True:	
+	check, frame = video.read()
+	small_frame = cv2.resize(frame, (0,0), fx=0.5, fy= 0.5)
+	rgb_small_frame = small_frame[:,:,::-1]
 
-face_recognizer = cv.face.LBPHFaceRecognizer_create(radius=1,neighbors=4)
-face_recognizer.read('face_trained.yml')
-
-capture=cv.VideoCapture(0)
-f=FaceDetectionModule()
-while True:
-    
-    isTrue,img=capture.read()
-#img = cv.imread(r"C:\Users\Nitin V Kavya\Desktop\python\OpenCV\Faces\val\elton_john\3.jpg")
-    img,boxes=f.findFace(img)
-    gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-    #cv.imshow('Person', gray)
-
-# Detect the face in the image
-    faces_rect = haar_cascade.detectMultiScale(gray, 1.1, 4)
-
-    for (x,y,w,h) in faces_rect:
-        
-        x1,y1=x+w,y+h
-        faces_roi = gray[y:y+h,x:x+w]
-
-        label, confidence = face_recognizer.predict(faces_roi)
-        print(f'Label = {people[label]} with a confidence of {confidence}')
-
-        cv.putText(img, str(people[label]), (20,20), cv.FONT_HERSHEY_COMPLEX, 1.0, (0,255,0), thickness=2)
-        faces_read.setdefault(people[label],[])
-        faces_read[people[label]].append(confidence)
-        
-       
+	face_locations = face_recognition.face_locations(rgb_small_frame)
+	face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
+	face_names = []
 
 
-        
+	for face_encoding in face_encodings:
 
+		matches = face_recognition.compare_faces(known_face_encodings, np.array(face_encoding), tolerance = 0.6)
 
+		face_distances = face_recognition.face_distance(known_face_encodings,face_encoding)	
+			
+		try:
+			matches = face_recognition.compare_faces(known_face_encodings, np.array(face_encoding), tolerance = 0.6)
 
-    cv.imshow('Detected Face', img)
-    if cv.waitKey(20) & 0xFF==ord('b'):
-        break
+			face_distances = face_recognition.face_distance(known_face_encodings,face_encoding)
+			best_match_index = np.argmin(face_distances)
 
-capture.release()
-cv.destroyAllWindows()
-print(faces_read)
-for i in faces_read.keys():
-    faces_read[i].sort()
+			if matches[best_match_index]:
+				name = known_face_names[best_match_index]
+				face_names.append(name)
+				if name not in names:
+					names.append(name)
+		except:
+			pass
 
-    if len(faces_read[i])>10:
-        faces_read[i]=faces_read[i][0:10]
-print(faces_read)
+	if len(face_names) == 0:
+		for (top,right,bottom,left) in face_locations:
+			top*=2
+			right*=2
+			bottom*=2
+			left*=2
+
+			cv2.rectangle(frame, (left,top),(right,bottom), (0,0,255), 2)
+
+				# cv2.rectangle(frame, (left, bottom - 30), (right,bottom - 30), (0,255,0), -1)
+			font = cv2.FONT_HERSHEY_DUPLEX
+			cv2.putText(frame, 'Unknown', (left, top), font, 0.8, (255,255,255),1)
+	else:
+		for (top,right,bottom,left), name in zip(face_locations, face_names):
+			top*=2
+			right*=2
+			bottom*=2
+			left*=2
+
+			cv2.rectangle(frame, (left,top),(right,bottom), (0,255,0), 2)
+
+				# cv2.rectangle(frame, (left, bottom - 30), (right,bottom - 30), (0,255,0), -1)
+			font = cv2.FONT_HERSHEY_DUPLEX
+			cv2.putText(frame, name, (left, top), font, 0.8, (255,255,255),1)
+
+	cv2.imshow("Face Recognition Panel",frame)
+
+	if cv2.waitKey(1) == ord('s'):
+		break
+
+video.release()
+cv2.destroyAllWindows()
+print(names)
