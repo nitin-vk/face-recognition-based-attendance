@@ -36,6 +36,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.videoTypeWindow.hide()
         self.listWidget.hide()
         self.sendMailBtn.hide()
+        self.regisWidget.hide()
         self.localBtn.clicked.connect(self.serachLocalFiles)
         self.recognizeBtn.clicked.connect(self.recognizeFaces)
         self.cancelBtn.clicked.connect(self.hideVideoTypeWindow)
@@ -128,6 +129,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
 
 
     def startStreaming(self):
+        unknown_face=False
         self.frame_4.hide()
         self.frame_5.hide()
         self.videoTypeWindow.hide()
@@ -185,6 +187,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
                     cv.rectangle(frame, (left,top),(right,bottom), (0,0,255), 2)
                     font = cv.FONT_HERSHEY_DUPLEX
                     cv.putText(frame, 'Unknown', (left, top), font, 0.8, (255,255,255),1)
+                    unknown_face=True
             else:
                 for (top,right,bottom,left), name in zip(face_locations, face_names):   
                     top*=2
@@ -203,7 +206,9 @@ class FacesRecognition(QtWidgets.QMainWindow):
         video.release()
         cv.destroyAllWindows()
         self.spreadSheetBtn.setEnabled(True)
-        print(self.faces_read)
+        if unknown_face==True:
+            self.regisWidget.show()
+        #print(self.faces_read)
 
 
 
