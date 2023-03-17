@@ -43,16 +43,16 @@ class SpreadSheetModule():
             sheet.cell(row=i,column=3).value=''
         #print(last_empty_row)
         for j in peoplePresent:
-            if (sum(peoplePresent[j])/len(peoplePresent[j]))<=55:
-                for i in range(2,last_empty_row+1):
-                    if sheet.cell(row=i,column=1).value==j:
-                        sheet.cell(row=i,column=3).value='P'
-                        sheet.cell(row=i,column=4).value=sheet.cell(row=i,column=4).value+1
-                        break
-        for i in range(2,last_empty_row+1):
-            if sheet.cell(row=i,column=3).value=='':
-                sheet.cell(row=i,column=3).value='A'
-                target=sheet.cell(row=i,column=5).value
+            #if (sum(peoplePresent[j])/len(peoplePresent[j]))<=55:
+            for i in range(2,last_empty_row+1):
+                if sheet.cell(row=i,column=1).value==j.split('-')[0]:
+                    sheet.cell(row=i,column=3).value='P'
+                    sheet.cell(row=i,column=4).value=sheet.cell(row=i,column=4).value+1
+                    break
+            for i in range(2,last_empty_row+1):
+                if sheet.cell(row=i,column=3).value=='':
+                    sheet.cell(row=i,column=3).value='A'
+                    target=sheet.cell(row=i,column=5).value
                 
         wb_obj.save(dir)
 
