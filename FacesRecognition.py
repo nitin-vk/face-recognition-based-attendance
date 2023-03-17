@@ -9,12 +9,16 @@ from PyQt5.QtWidgets import QFileDialog,QMessageBox
 from PyQt5.QtGui import QDesktopServices
 import sys,pickle,face_recognition
 from SpreadSheetModule import SpreadSheetModule
+from PyQt5.QtMultimedia import QCamera, QCameraImageCapture, QCameraInfo
+from PyQt5.QtMultimediaWidgets import QCameraViewfinder
+from PyQt5.QtGui import QPixmap
 
 class FacesRecognition(QtWidgets.QMainWindow):
     def __init__(self):
         super(FacesRecognition, self).__init__()
         uic.loadUi('FacesRecognition.ui', self)
         self.show()
+        self.newStudentPic=''
         self.yml_file=''
         self.haar_cascade=''
         self.ftp_dir=''
@@ -52,8 +56,50 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.spreadCancelBtn.clicked.connect(self.cancelSpread)
         self.ftpBtn.clicked.connect(self.ftpProcess)
         self.sendMailBtn.clicked.connect(self.sendMail)
-        
+        self.regisUploadBtn.clicked.connect(self.newStudentImage)
+        self.regisCancelBtn.clicked.connect(self.stopRegistration)
+        self.regisSubmitBtn.clicked.connect(self.registerStudent)
 
+    def registerStudent(self):
+        if self.regisUsnInput.toPlainText() =="":
+            QMessageBox.about(self, "ENTER USN", "PLEASE ENTER YOUR USN")
+        elif self.regisNameInput.toPlainText() =="":
+            QMessageBox.about(self, "ENTER NAME", "PLEASE ENTER YOUR NAME")
+        elif self.newStudentImage=="":
+            QMessageBox.about(self, "UPLOAD IMAGE", "PLEASE UPLOAD YOUR IMAGE")
+        else:
+            options = QtWidgets.QFileDialog.Options()
+            options |= QtWidgets.QFileDialog.DontUseNativeDialog
+            file_name, _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File', self.regisUsnInput.toPlainText()+'-'+self.regisNameInput.toPlainText(), 'JPEG(*.jpg)', options=options)
+            if file_name:
+                cv.imwrite(file_name, self.newStudentPic)
+            self.regisUsnInput.setPlainText("")
+            self.regisNameInput.setPlainText("")
+            self.newStudentImage=""
+        
+        
+    def stopRegistration(self):
+        self.regisWidget.hide()
+        self.regisTitleFrame.hide()
+        self.regisUsnFrame.hide()
+        self.regisNameFrame.hide()
+        self.regisPhotoFrame.hide()
+        self.regisBtnFrame.hide()
+    
+
+
+
+    def newStudentImage(self):
+        self.capture = cv.VideoCapture(0)
+        while True:
+            ret, frame = self.capture.read()
+            self.newStudentPic = frame
+            cv.imshow('take it',frame)
+            if cv.waitKey(1) == ord('s'):
+                break
+        self.capture.release()
+        cv.destroyAllWindows()
+        
     def sendMail(self):
         self.spread.sendMail(self.mytext)
         QMessageBox.about(self, "MAIL SENT", "MAIL SENT SUCCESSFULLY")
