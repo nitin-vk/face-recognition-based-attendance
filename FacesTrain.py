@@ -7,7 +7,7 @@ import sys
 import ftplib
 from ftplib import FTP
 from PyQt5.QtGui import QPixmap
-import pyqt_design
+import pyqt_design,face_recognition,pickle
 
 
 class FacesTrain(QtWidgets.QMainWindow):
@@ -44,12 +44,31 @@ class FacesTrain(QtWidgets.QMainWindow):
             print("Select the training directory")
             return
 
-        if self.haar_cascade=='':
+        '''if self.haar_cascade=='':
             print("select the XML file for haar cascading")
-            return
-        self.progressFrame.show()
+            return'''
         
+        self.progressFrame.show()
         dir=self.dir
+        known_face_encodings = []
+        known_face_names=[]
+        for i in os.listdir(dir):
+            known_face_names.append(i)
+        for i in os.listdir(dir):
+            print(int((known_face_names.index(i)+1)/(len(known_face_names))*100))
+            self.trainProgress.setValue(int((int(known_face_names.index(i))+1)/(len(known_face_names))*100))
+            self.trainProgress.setTextVisible(False)
+            for file in os.listdir(os.path.join(dir,i)):
+                image = face_recognition.load_image_file(os.path.join(dir,i,file))
+                face_encoding = face_recognition.face_encodings(image)[0]
+                known_face_encodings.append(face_encoding)
+        folderName=self.ftp_dir
+        if os.path.exists('D:/Compiled Files/'+folderName)==False:
+            os.mkdir('D:/Compiled Files/'+folderName)
+        with open((os.path.join('D:/Compiled Files/',folderName,'encodings.txt')), "wb") as fp:
+            pickle.dump((known_face_encodings, known_face_names), fp)
+        self.doneFrame.show()
+        '''dir=self.dir
         people=[]
         print("from train {}".format(self.haar_cascade))
         haar_cascade=cv.CascadeClassifier(self.haar_cascade)
@@ -72,11 +91,11 @@ class FacesTrain(QtWidgets.QMainWindow):
 
         face.save('D:/Compiled Files/'+folderName+'/compiled.yml')
         np.save('D:/Compiled Files/'+folderName+'/features', features)
-        np.save('D:/Compiled Files/'+folderName+'/labels', labels)
+        np.save('D:/Compiled Files/'+folderName+'/labels', labels)'''
 
           
 
-    def create_train(self,dir,people,features,labels,haar_cascade):
+    '''def create_train(self,dir,people,features,labels,haar_cascade):
         for person in people:
             path=os.path.join(str(dir),person)
             label=people.index(person)
@@ -95,7 +114,7 @@ class FacesTrain(QtWidgets.QMainWindow):
                 for (a,b,c,d) in face_rect:
                     face_boi=gray[b:b+d,a:a+c]
                     features.append(face_boi)
-                    labels.append(label)
+                    labels.append(label)'''
                     
     
 
