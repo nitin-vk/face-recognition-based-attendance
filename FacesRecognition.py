@@ -326,7 +326,7 @@ QFrame#frame{
     font-family: Arial, sans-serif;
     font-size: 14px;
 }
-QFrame#frame_2{
+QFrame#frame_2,#frame_6{
     border: 2px solid #ccc;
     background-color: #FFE5E5;
     font-family: Arial, sans-serif;
