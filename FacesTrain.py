@@ -7,7 +7,7 @@ import sys
 import ftplib
 from ftplib import FTP
 from PyQt5.QtGui import QPixmap
-import pyqt_design
+import pyqt_design,face_recognition,pickle
 
 
 class FacesTrain(QtWidgets.QMainWindow):
@@ -18,22 +18,12 @@ class FacesTrain(QtWidgets.QMainWindow):
         self.dir=''
         self.haar_cascade=''
         self.ftp_dir=''
-        self.selectXml.clicked.connect(self.selectXmlFile)
         self.selectDir.clicked.connect(self.selectDirectory)
         self.trainBtn.clicked.connect(self.trainFaces)
         self.progressFrame.hide()
         self.doneFrame.hide()
 
-    def selectXmlFile(self):
-        self.haar_cascade = QFileDialog.getOpenFileName(self, 'Open file', 
-        'c:\\',"XML files (*.xml)")
-        #print(str(self.haar_cascade))
-        self.haar_cascade=str(self.haar_cascade)
-        pos=self.haar_cascade.index(',')
-        self.haar_cascade=self.haar_cascade[2:pos-1]
-        #print(os.path.exists(str(self.haar_cascade)))
-        
-
+    
     def selectDirectory(self):
         self.dir = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
         self.ftp_dir=str(self.dir[self.dir.rindex('/')+1:len(self.dir)])
@@ -44,109 +34,38 @@ class FacesTrain(QtWidgets.QMainWindow):
             print("Select the training directory")
             return
 
-        if self.haar_cascade=='':
-            print("select the XML file for haar cascading")
-            return
-        self.progressFrame.show()
-        
-        dir=self.dir
-        people=[]
-        print("from train {}".format(self.haar_cascade))
-        haar_cascade=cv.CascadeClassifier(self.haar_cascade)
-        for i in os.listdir(dir):
-            people.append(i)
-        print(people)
-        features=[]
-        labels=[]
-        self.create_train(dir,people,features,labels,haar_cascade)
-        #print("Training Done")
-        self.doneFrame.show()
-        features=np.array(features,dtype='object')
-        labels=np.array(labels)
-
-        face=cv.face.LBPHFaceRecognizer_create()
-        face.train(features,labels)
-
-        '''options = QtWidgets.QFileDialog.Options()
-        #options |= QtWidgets.QFileDialog.DontUseNativeDialog
-        fileName1, _ = QtWidgets.QFileDialog.getSaveFileName(self, 
-            "Save File", "", "YML files(*.yml)", options = options)
-        
-
-        
-
-        options = QtWidgets.QFileDialog.Options()
-        #options |= QtWidgets.QFileDialog.DontUseNativeDialog
-        fileName2, _ = QtWidgets.QFileDialog.getSaveFileName(self, 
-            "Save File", "", "NPY files(*.npy)", options = options)
-        
-
-        options = QtWidgets.QFileDialog.Options()
-        #options |= QtWidgets.QFileDialog.DontUseNativeDialog
-        fileName3, _ = QtWidgets.QFileDialog.getSaveFileName(self, 
-            "Save File", "", "NPY files(*.npy)", options = options)'''
        
+        
+        self.progressFrame.show()
+        dir=self.dir
+        known_face_encodings = []
+        known_face_names=[]
+        for i in os.listdir(dir):
+            known_face_names.append(i)
+        for i in os.listdir(dir):
+            self.trainProgress.setValue(int((int(known_face_names.index(i))+1)/(len(known_face_names))*100))
+            self.trainProgress.setTextVisible(False)
+            for file in os.listdir(os.path.join(dir,i)):
+                image = face_recognition.load_image_file(os.path.join(dir,i,file))
+                face_encoding = face_recognition.face_encodings(image)[0]
+                known_face_encodings.append(face_encoding)
         folderName=self.ftp_dir
         if os.path.exists('D:/Compiled Files/'+folderName)==False:
             os.mkdir('D:/Compiled Files/'+folderName)
+        with open((os.path.join('D:/Compiled Files/',folderName,'encodings.txt')), "wb") as fp:
+            pickle.dump((known_face_encodings, known_face_names), fp)
+        self.doneFrame.show()
         
-
-        face.save('D:/Compiled Files/'+folderName+'/compiled.yml')
-        np.save('D:/Compiled Files/'+folderName+'/features', features)
-        np.save('D:/Compiled Files/'+folderName+'/labels', labels)
-
-        '''ftp = FTP(host="192.168.0.104");
-        ftp.login(user="Nitin V Kavya", passwd="nitinvkavya");
-        folderName = self.ftp_dir
-        if folderName not in ftp.nlst():
-            ftp.mkd(folderName)
-        ftp.quit()'''
-        
-        '''session = ftplib.FTP('192.168.0.104','Nitin V Kavya','nitinvkavya')
-        session.cwd(folderName)
-
-        file = open(fileName1,'rb')                  # file to send
-        session.storbinary('STOR '+fileName1[fileName1.rindex('/')+1:len(fileName1)], file)     # send the file
-        file.close()
-        
-        file = open(fileName2,'rb')                  # file to send
-        session.storbinary('STOR '+fileName2[fileName2.rindex('/')+1:len(fileName2)], file)     # send the file
-        file.close()   
-        
-        file = open(fileName3,'rb')                  # file to send
-        session.storbinary('STOR '+fileName3[fileName3.rindex('/')+1:len(fileName3)], file)     # send the file
-        file.close()   
-                                           # close file and FTP
-        session.quit()
-        #os.remove(fileName1)
-        #os.remove(fileName2)
-        #os.remove(fileName3)'''
-
-    def create_train(self,dir,people,features,labels,haar_cascade):
-        for person in people:
-            path=os.path.join(str(dir),person)
-            label=people.index(person)
-            self.trainProgress.setValue(int((label+1)/(len(people))*100))
-            self.trainProgress.setTextVisible(False)
-            #time.sleep(5)
-            for img in os.listdir(path):
-                img_path=os.path.join(path,img)
-                img_array=cv.imread(img_path)
-                if img_array is None:
-                    continue
-        
-
-                gray=cv.cvtColor(img_array,cv.COLOR_BGR2GRAY)
-                face_rect=haar_cascade.detectMultiScale(gray,scaleFactor=1.1,minNeighbors=3)
-                for (a,b,c,d) in face_rect:
-                    face_boi=gray[b:b+d,a:a+c]
-                    features.append(face_boi)
-                    labels.append(label)
+                    
     
 
 
 app = QtWidgets.QApplication(sys.argv)
 style="""
+FacesTrain{
+
+}
+
 QPushButton:open { /* when the button has its menu open */
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                       stop: 0 #dadbde, stop: 1 #f6f7fa);
