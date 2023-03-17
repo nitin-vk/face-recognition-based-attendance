@@ -37,6 +37,11 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.listWidget.hide()
         self.sendMailBtn.hide()
         self.regisWidget.hide()
+        self.regisTitleFrame.hide()
+        self.regisUsnFrame.hide()
+        self.regisNameFrame.hide()
+        self.regisPhotoFrame.hide()
+        self.regisBtnFrame.hide()
         self.localBtn.clicked.connect(self.serachLocalFiles)
         self.recognizeBtn.clicked.connect(self.recognizeFaces)
         self.cancelBtn.clicked.connect(self.hideVideoTypeWindow)
@@ -208,6 +213,11 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.spreadSheetBtn.setEnabled(True)
         if unknown_face==True:
             self.regisWidget.show()
+            self.regisTitleFrame.show()
+            self.regisUsnFrame.show()
+            self.regisNameFrame.show()
+            self.regisPhotoFrame.show()
+            self.regisBtnFrame.show()
         #print(self.faces_read)
 
 
