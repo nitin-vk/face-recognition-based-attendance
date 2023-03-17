@@ -57,7 +57,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         
     def serachLocalFiles(self):
         self.yml_file=QFileDialog.getOpenFileName(self, 'Open file', 
-        'c:\\',"YML files (*.txt)")
+        'c:\\',"Text Files (*.txt)")
         print(self.yml_file)
         self.yml_file=str(self.yml_file)
         pos=self.yml_file.index(',')
@@ -146,6 +146,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
             videoType=str(videoType)
             pos=videoType.index(',')
             videoType=videoType[2:pos-1]
+            print(os.path.exists(videoType))
         else:
               QMessageBox.about(self, "ERROR", "SELECT THE TYPE OF VIDEO")
               return
