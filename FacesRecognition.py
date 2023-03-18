@@ -46,7 +46,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.regisNameFrame.hide()
         self.regisPhotoFrame.hide()
         self.regisBtnFrame.hide()
-        self.localBtn.clicked.connect(self.serachLocalFiles)
+        self.classSubmitBtn.clicked.connect(self.serachLocalFiles)
         self.recognizeBtn.clicked.connect(self.recognizeFaces)
         self.cancelBtn.clicked.connect(self.hideVideoTypeWindow)
         self.okBtn.clicked.connect(self.startStreaming)
@@ -108,17 +108,18 @@ class FacesRecognition(QtWidgets.QMainWindow):
         mainobj=Main()
         
     def serachLocalFiles(self):
-        self.yml_file=QFileDialog.getOpenFileName(self, 'Open file', 
-        'c:\\',"Text Files (*.txt)")
+        #self.yml_file=QFileDialog.getOpenFileName(self, 'Open file', 
+        #'c:\\',"Text Files (*.txt)")
+        self.yml_file=os.path.join('D:\Compiled Files',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText(),'encodings.txt')
         print(self.yml_file)
         self.yml_file=str(self.yml_file)
-        pos=self.yml_file.index(',')
+        '''pos=self.yml_file.index(',')
         self.yml_file=self.yml_file[2:pos-1]
         pos=self.yml_file.rindex('/')
         yml_file=self.yml_file[pos+1:len(self.yml_file)+1]
         #print(self.yml_file)
         if self.yml_file!='':
-            self.fileLocation.insertPlainText(yml_file)
+            self.fileLocation.insertPlainText(yml_file)'''
         self.afterSelectFrame.show()
         self.spreadSheetBtn.show()
         self.spreadSheetBtn.setEnabled(False)
