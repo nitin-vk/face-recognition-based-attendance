@@ -115,6 +115,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         #print(self.yml_file)
         if os.path.exists(self.yml_file)==False:
             QMessageBox.information(self,"Error","Import the file from FTP first")
+            os.makedirs(os.path.join('D:\Compiled Files',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))
             return
         self.yml_file=str(self.yml_file)
         '''pos=self.yml_file.index(',')
