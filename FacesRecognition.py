@@ -117,9 +117,9 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.yml_file=self.yml_file[2:pos-1]
         pos=self.yml_file.rindex('/')
         yml_file=self.yml_file[pos+1:len(self.yml_file)+1]
-        #print(self.yml_file)
+        #print(self.yml_file)'''
         if self.yml_file!='':
-            self.fileLocation.insertPlainText(yml_file)'''
+            self.fileLocation.insertPlainText('encodings.txt')
         self.afterSelectFrame.show()
         self.spreadSheetBtn.show()
         self.spreadSheetBtn.setEnabled(False)
