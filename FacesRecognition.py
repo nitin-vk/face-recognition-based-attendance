@@ -243,7 +243,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
                     left*=2
                     cv.rectangle(frame, (left,top),(right,bottom), (0,0,255), 2)
                     font = cv.FONT_HERSHEY_DUPLEX
-                    cv.putText(frame, 'Unknown', (left, top), font, 0.8, (255,255,255),1)
+                    cv.putText(frame, 'Unknown', (left, top), font, 0.8, (0,0,0),1)
                     unknown_face=True
             else:
                 for (top,right,bottom,left), name in zip(face_locations, face_names):   
@@ -270,7 +270,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
             self.regisNameFrame.show()
             self.regisPhotoFrame.show()
             self.regisBtnFrame.show()
-        #print(self.faces_read)
+        print(self.faces_read)
 
 
 
