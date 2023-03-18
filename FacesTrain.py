@@ -32,6 +32,7 @@ class FacesTrain(QtWidgets.QMainWindow):
         self.dir=self.ftp_dir
         if os.path.exists(self.dir)==False:
             QMessageBox.information(self, "ERROR", "Training Directory Does Not Exsist")
+            return
         else:
             self.trainBtn.setEnabled(True)
 
