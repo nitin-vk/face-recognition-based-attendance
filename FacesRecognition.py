@@ -1,4 +1,4 @@
-import os,ftplib
+import os,ftplib,shutil
 import numpy as np
 import cv2 as cv
 from FaceDetectionModule import FaceDetectionModule
@@ -107,11 +107,15 @@ class FacesRecognition(QtWidgets.QMainWindow):
     def ftpProcess(self):
         mainobj=Main()
         
+    
     def serachLocalFiles(self):
         #self.yml_file=QFileDialog.getOpenFileName(self, 'Open file', 
         #'c:\\',"Text Files (*.txt)")
         self.yml_file=os.path.join('D:\Compiled Files',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText(),'encodings.txt')
-        print(self.yml_file)
+        #print(self.yml_file)
+        if os.path.exists(self.yml_file)==False:
+            QMessageBox.information(self,"Error","Import the file from FTP first")
+            return
         self.yml_file=str(self.yml_file)
         '''pos=self.yml_file.index(',')
         self.yml_file=self.yml_file[2:pos-1]
@@ -274,9 +278,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
 
 app = QtWidgets.QApplication(sys.argv)
 style="""
-FacesRecognition{
-background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #1abc9c, stop: 1 #3498db)
-}
+
 QPushButton:open { /* when the button has its menu open */
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                       stop: 0 #dadbde, stop: 1 #f6f7fa);
@@ -320,19 +322,6 @@ QPushButton {
     background-color: grey;
     color: white;
     font-size: 16px;
-}
-QFrame#frame{
-    border: 2px solid #ccc;
-    background-color: #778899;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-}
-QFrame#frame_2,#frame_6{
-    border: 2px solid #ccc;
-    background-color: #FFE5E5;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    
 }
 
 """
