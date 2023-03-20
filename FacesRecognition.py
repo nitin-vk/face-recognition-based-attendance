@@ -109,8 +109,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         
     
     def serachLocalFiles(self):
-        #self.yml_file=os.path.join('D:\Compiled Files',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText(),'encodings.txt')
-        self.yml_file=(r"C:\Users\Nitin V Kavya\Desktop\encodings.txt")
+        self.yml_file=os.path.join('D:\Compiled Files',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText(),'encodings.txt')
         if os.path.exists(self.yml_file)==False:
             QMessageBox.information(self,"Error","Import the file from FTP first")
             os.makedirs(os.path.join('D:\Compiled Files',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))
@@ -124,8 +123,6 @@ class FacesRecognition(QtWidgets.QMainWindow):
         #ftp_compiled_time=datetime.datetime.fromtimestamp(ftp_compiled_date)
         mdtm_format = '%Y%m%d%H%M%S'
         mdtm_string = local_compiled_time.strftime(mdtm_format)
-        print(mdtm_string)
-        print(ftp_compiled_date)
         if ftp_compiled_date>mdtm_string:
             QMessageBox.information(self,"Error","The compiled file has been updated. Use FTP to import it")
             return
