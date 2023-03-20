@@ -1,4 +1,4 @@
-import os,ftplib,shutil
+import os,ftplib,shutil,datetime,ftplib
 import numpy as np
 import cv2 as cv
 from FaceDetectionModule import FaceDetectionModule
@@ -104,24 +104,35 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.spread.sendMail(self.mytext)
         QMessageBox.about(self, "MAIL SENT", "MAIL SENT SUCCESSFULLY")
 
-    def ftpProcess(self):
+    def ftpProcess(self):   
         mainobj=Main()
         
     
     def serachLocalFiles(self):
-        #self.yml_file=QFileDialog.getOpenFileName(self, 'Open file', 
-        #'c:\\',"Text Files (*.txt)")
         self.yml_file=os.path.join('D:\Compiled Files',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText(),'encodings.txt')
-        #print(self.yml_file)
         if os.path.exists(self.yml_file)==False:
             QMessageBox.information(self,"Error","Import the file from FTP first")
             os.makedirs(os.path.join('D:\Compiled Files',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))
             return
+        local_compiled_date=os.path.getmtime(self.yml_file)
+        local_compiled_time=datetime.datetime.fromtimestamp(local_compiled_date)
+        ftp = ftplib.FTP('192.168.0.103')
+        ftp.login('Nitin V Kavya', 'nitinvkavya')
+        ftp.cwd(os.path.join('main file/Compiled Files',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))
+        ftp_compiled_date = ftp.sendcmd('MDTM ' + 'encodings.txt')[4:]
+        #ftp_compiled_time=datetime.datetime.fromtimestamp(ftp_compiled_date)
+        mdtm_format = '%Y%m%d%H%M%S'
+        mdtm_string = local_compiled_time.strftime(mdtm_format)
+        if ftp_compiled_date>mdtm_string:
+            QMessageBox.information(self,"Error","The compiled file has been updated. Use FTP to import it")
+            return
+
+        
         self.yml_file=str(self.yml_file)
-        '''pos=self.yml_file.index(',')
+        """pos=self.yml_file.index(',')
         self.yml_file=self.yml_file[2:pos-1]
         pos=self.yml_file.rindex('/')
-        yml_file=self.yml_file[pos+1:len(self.yml_file)+1]
+        yml_file=self.yml_file[pos+1:len(self.yml_file)+1]"""
         #print(self.yml_file)'''
         if self.yml_file!='':
             self.fileLocation.insertPlainText('encodings.txt')
