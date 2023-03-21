@@ -16,10 +16,10 @@
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
-     <x>59</x>
-     <y>110</y>
+     <x>60</x>
+     <y>190</y>
      <width>291</width>
-     <height>111</height>
+     <height>101</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -38,10 +38,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>CREATE ID_CARD</string>
+     <string>CREATE ID CARD</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="selectCompiledButton">
+   <widget class="QPushButton" name="photoBtn">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -51,7 +51,202 @@
      </rect>
     </property>
     <property name="text">
-     <string>SELECT COMPILED FILE</string>
+     <string>CLICK A PICTURE</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QFrame" name="frame_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>60</y>
+     <width>101</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QComboBox" name="branchComboBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>73</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>CSE</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>ISE</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>ECE</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>MECH</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>CIVIL</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>IM</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>55</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>BRANCH</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QFrame" name="frame_3">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>60</y>
+     <width>101</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QComboBox" name="yearComboBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>73</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>4</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>55</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>YEAR</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QFrame" name="frame_4">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>60</y>
+     <width>101</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QComboBox" name="sectionComboBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>73</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>A</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>B</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>C</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>55</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SECTION</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="submitBtn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>80</y>
+      <width>71</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SUBMIT</string>
     </property>
    </widget>
   </widget>
