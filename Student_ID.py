@@ -174,7 +174,7 @@ QWidget{
 
 QFrame#frame{
     border: 2px solid #ccc;
-    background-color: #778899;
+    background-color: #838996;
     font-family: Arial, sans-serif;
     font-size: 14px;
 }
