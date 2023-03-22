@@ -5,7 +5,7 @@ import face_recognition
 import pickle
 
 def create_train():
-    dir=r"D:\Faces\8CSEB"
+    dir=r"D:\Faces\CSE\4\B"
     known_face_encodings = []
     known_face_names=[]
     for i in os.listdir(dir):
