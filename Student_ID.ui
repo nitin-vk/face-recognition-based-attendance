@@ -13,6 +13,12 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>true</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:</string>
+  </property>
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
@@ -37,6 +43,15 @@
       <height>28</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Cambria</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
      <string>CREATE ID CARD</string>
     </property>
@@ -50,6 +65,15 @@
       <height>28</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Cambria</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
      <string>CLICK A PICTURE</string>
     </property>
@@ -61,7 +85,7 @@
      <x>20</x>
      <y>60</y>
      <width>101</width>
-     <height>80</height>
+     <height>121</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -78,6 +102,14 @@
       <width>73</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Calibri</family>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
     </property>
     <item>
      <property name="text">
@@ -115,9 +147,18 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>55</width>
+      <width>71</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Calibri</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>BRANCH</string>
@@ -130,7 +171,7 @@
      <x>140</x>
      <y>60</y>
      <width>101</width>
-     <height>80</height>
+     <height>121</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -147,6 +188,14 @@
       <width>73</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Calibri</family>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
     </property>
     <item>
      <property name="text">
@@ -178,6 +227,15 @@
       <height>16</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Calibri</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
      <string>YEAR</string>
     </property>
@@ -207,6 +265,14 @@
       <height>22</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Calibri</family>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
+    </property>
     <item>
      <property name="text">
       <string>A</string>
@@ -228,9 +294,18 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>55</width>
+      <width>71</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Calibri</family>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>SECTION</string>
@@ -244,6 +319,15 @@
       <width>71</width>
       <height>28</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Cambria</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>SUBMIT</string>
