@@ -177,12 +177,14 @@ QFrame#frame{
     background-color: #838996;
     font-family: Arial, sans-serif;
     font-size: 14px;
+    border-radius: 10px;
 }
 QFrame#frame_2,#frame_3,#frame_4{
     border: 2px solid #ccc;
     background-color: #FFE5E5;
     font-family: Arial, sans-serif;
     font-size: 14px;
+    border-radius: 10px;
     
 }
 """
