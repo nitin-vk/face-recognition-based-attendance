@@ -5,6 +5,7 @@ import cv2 as cv
 from FaceDetectionModule import FaceDetectionModule
 from tk_id_card_main import TK_ID_CARD_MAIN
 from PIL import Image
+from html_id_card import HTML_ID_CARD
 
 class Student_ID(QtWidgets.QMainWindow):
     def __init__(self):
@@ -112,7 +113,9 @@ class Student_ID(QtWidgets.QMainWindow):
         recognized_usn=self.faces_read[0].split('-')[0]
         recognized_name=self.faces_read[0].split('-')[1]
         #self.idPhoto.save('face.jpg')
-        id_card=TK_ID_CARD_MAIN(recognized_usn,recognized_name,'face.jpg')
+        id_card=HTML_ID_CARD(recognized_usn,recognized_name,self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText())
+        id_card.HTMLgen()
+        id_card.PDFgen(str(recognized_usn)+"-"+str(recognized_name))
         self.idPhoto=""
         self.yml_filr=""
         
