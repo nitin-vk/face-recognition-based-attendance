@@ -113,6 +113,9 @@ class Student_ID(QtWidgets.QMainWindow):
         recognized_name=self.faces_read[0].split('-')[1]
         #self.idPhoto.save('face.jpg')
         id_card=TK_ID_CARD_MAIN(recognized_usn,recognized_name,'face.jpg')
+        self.idPhoto=""
+        self.yml_filr=""
+        
         
 
     
