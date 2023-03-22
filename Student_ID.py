@@ -2,7 +2,6 @@ from PyQt5 import QtWidgets, uic
 import sys,os,face_recognition,pickle,numpy as np
 from PyQt5.QtWidgets import QFileDialog,QMessageBox
 import cv2 as cv
-from FaceDetectionModule import FaceDetectionModule
 from PIL import Image
 from html_id_card import HTML_ID_CARD
 
