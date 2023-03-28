@@ -116,8 +116,9 @@ class FacesRecognition(QtWidgets.QMainWindow):
             return
         local_compiled_date=os.path.getmtime(self.yml_file)
         local_compiled_time=datetime.datetime.fromtimestamp(local_compiled_date)
-        ftp = ftplib.FTP('192.168.0.103')
+        ftp = ftplib.FTP('192.168.60.241')
         ftp.login('Nitin V Kavya', 'nitinvkavya')
+        print("ftp dir is {}".format(ftp.dir()))
         ftp.cwd(os.path.join('main file/Compiled Files',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))
         ftp_compiled_date = ftp.sendcmd('MDTM ' + 'encodings.txt')[4:]
         #ftp_compiled_time=datetime.datetime.fromtimestamp(ftp_compiled_date)
