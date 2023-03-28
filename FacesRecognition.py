@@ -114,7 +114,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
             QMessageBox.information(self,"Error","Import the file from FTP first")
             os.makedirs(os.path.join('D:\Compiled Files',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))
             return
-        local_compiled_date=os.path.getmtime(self.yml_file)
+        '''local_compiled_date=os.path.getmtime(self.yml_file)
         local_compiled_time=datetime.datetime.fromtimestamp(local_compiled_date)
         ftp = ftplib.FTP('192.168.60.241')
         ftp.login('Nitin V Kavya', 'nitinvkavya')
@@ -126,7 +126,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         mdtm_string = local_compiled_time.strftime(mdtm_format)
         if ftp_compiled_date>mdtm_string:
             QMessageBox.information(self,"Error","The compiled file has been updated. Use FTP to import it")
-            return
+            return'''
 
         
         self.yml_file=str(self.yml_file)
