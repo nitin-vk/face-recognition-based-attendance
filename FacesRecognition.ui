@@ -488,7 +488,7 @@
      <x>140</x>
      <y>60</y>
      <width>101</width>
-     <height>80</height>
+     <height>111</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -555,6 +555,19 @@
     </property>
     <property name="text">
      <string>YEAR</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="sshBtn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>80</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SSH</string>
     </property>
    </widget>
   </widget>
@@ -647,7 +660,7 @@
      </font>
     </property>
     <property name="text">
-     <string>SUBMIT</string>
+     <string>LOCAL</string>
     </property>
    </widget>
   </widget>
@@ -881,6 +894,26 @@
     </property>
    </widget>
   </widget>
+  <zorder>frame_10</zorder>
+  <zorder>frame_9</zorder>
+  <zorder>frame</zorder>
+  <zorder>afterSelectFrame</zorder>
+  <zorder>frame_3</zorder>
+  <zorder>videoTypeWindow</zorder>
+  <zorder>frame_4</zorder>
+  <zorder>frame_5</zorder>
+  <zorder>listWidget</zorder>
+  <zorder>frame_6</zorder>
+  <zorder>frame_7</zorder>
+  <zorder>frame_8</zorder>
+  <zorder>label_5</zorder>
+  <zorder>regisWidget</zorder>
+  <zorder>frame_2</zorder>
+  <zorder>regisTitleFrame</zorder>
+  <zorder>regisUsnFrame</zorder>
+  <zorder>regisNameFrame</zorder>
+  <zorder>regisPhotoFrame</zorder>
+  <zorder>regisBtnFrame</zorder>
  </widget>
  <resources/>
  <connections/>

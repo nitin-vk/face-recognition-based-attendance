@@ -1,4 +1,4 @@
-import os,ftplib,shutil,datetime,ftplib
+import os,ftplib,shutil,datetime,ftplib,paramiko
 import numpy as np
 import cv2 as cv
 from FaceDetectionModule import FaceDetectionModule
@@ -59,6 +59,18 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.regisUploadBtn.clicked.connect(self.newStudentImage)
         self.regisCancelBtn.clicked.connect(self.stopRegistration)
         self.regisSubmitBtn.clicked.connect(self.registerStudent)
+        self.sshBtn.clicked.connect(self.startSSH)
+
+    def startSSH(self):
+        self.yml_file=r'\\DESKTOP-B51HC2A\Compiled Files'+'\\'+self.branchComboBox.currentText()+'\\'+self.yearComboBox.currentText()+'\\'+self.sectionComboBox.currentText()+'\\'+'encodings.txt'
+        if self.yml_file!='':
+            self.fileLocation.insertPlainText('encodings.txt')
+        self.afterSelectFrame.show()
+        self.spreadSheetBtn.show()
+        self.spreadSheetBtn.setEnabled(False)
+        self.recognizeBtn.show()
+        self.sendMailBtn.show()
+        self.sendMailBtn.setEnabled(False)
 
     def registerStudent(self):
         if self.regisUsnInput.toPlainText() =="":
@@ -112,7 +124,8 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.yml_file=os.path.join('D:\Compiled Files',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText(),'encodings.txt')
         if os.path.exists(self.yml_file)==False:
             QMessageBox.information(self,"Error","Import the file from FTP first")
-            os.makedirs(os.path.join('D:\Compiled Files',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))
+            if os.path.exists(os.path.join('D:\Compiled Files',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))==False:
+                os.makedirs(os.path.join('D:\Compiled Files',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))
             return
         '''local_compiled_date=os.path.getmtime(self.yml_file)
         local_compiled_time=datetime.datetime.fromtimestamp(local_compiled_date)
