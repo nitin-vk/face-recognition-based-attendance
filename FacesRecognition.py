@@ -80,15 +80,21 @@ class FacesRecognition(QtWidgets.QMainWindow):
         elif self.newStudentImage=="":
             QMessageBox.about(self, "UPLOAD IMAGE", "PLEASE UPLOAD YOUR IMAGE")
         else:
-            options = QtWidgets.QFileDialog.Options()
+            '''options = QtWidgets.QFileDialog.Options()
             options |= QtWidgets.QFileDialog.DontUseNativeDialog
             file_name, _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File', self.regisUsnInput.toPlainText()+'-'+self.regisNameInput.toPlainText(), 'JPEG(*.jpg)', options=options)
             if file_name:
                 cv.imwrite(file_name, self.newStudentPic)
             self.regisUsnInput.setPlainText("")
             self.regisNameInput.setPlainText("")
-            self.newStudentImage=""
-        
+            self.newStudentImage=""'''
+            network_path=r"\\NITIN-PC\Faces"
+            new_dir=os.path.join(network_path,self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText(),self.regisUsnInput.toPlainText()+'-'+self.regisNameInput.toPlainText())
+            if not os.path.exists(new_dir):
+                os.makedirs(new_dir)
+            cv.imwrite(self.regisUsnInput.toPlainText()+'-'+self.regisNameInput.toPlainText()+'.jpg',self.newStudentPic)
+            shutil.move(self.regisUsnInput.toPlainText()+'-'+self.regisNameInput.toPlainText()+'.jpg', new_dir)
+            print("FILE MOVED SUCCESSFULLY")
         
     def stopRegistration(self):
         self.regisWidget.hide()
