@@ -674,7 +674,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string>CONNECT TO :</string>
    </property>
   </widget>
   <widget class="QListWidget" name="regisWidget">

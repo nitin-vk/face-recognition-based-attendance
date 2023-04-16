@@ -1,7 +1,6 @@
 import os,ftplib,shutil,datetime,ftplib,paramiko
 import numpy as np
 import cv2 as cv
-from FaceDetectionModule import FaceDetectionModule
 from main import Main
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import QProcess,QUrl
@@ -52,7 +51,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.okBtn.clicked.connect(self.startStreaming)
         self.spreadSheetBtn.hide()
         self.spreadSheetBtn.clicked.connect(self.invokeSpreadSheet)
-        self.spreadOkBtn.clicked.connect(self.createSpreadSheet)
+        #self.spreadOkBtn.clicked.connect(self.createSpreadSheet)
         self.spreadCancelBtn.clicked.connect(self.cancelSpread)
         self.ftpBtn.clicked.connect(self.ftpProcess)
         self.sendMailBtn.clicked.connect(self.sendMail)
@@ -175,14 +174,14 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.frame_5.hide()
         self.videoTypeWindow.hide()
 
-    def invokeSpreadSheet(self):
+    '''def invokeSpreadSheet(self):
         self.frame_6.show()
         self.frame_7.show()
         self.listWidget.show()
         self.sheetNameLabel.show()
         self.sheetNameText.show()
         self.spreadOkBtn.show()
-        self.spreadCancelBtn.show()
+        self.spreadCancelBtn.show()'''
        
 
     def cancelSpread(self):
@@ -195,7 +194,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.listWidget.hide()
         
 
-    def createSpreadSheet(self):
+    def invokeSpreadSheet(self):
         self.frame_6.hide()
         self.frame_7.hide()
         self.sheetNameLabel.hide()
@@ -204,16 +203,19 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.spreadCancelBtn.hide()
         self.listWidget.hide()
         self.spread=SpreadSheetModule(self.people,self.usn)
-        self.mytext = self.sheetNameText.toPlainText()
-        if self.mytext=='':
-            QMessageBox.about(self, "ERROR", "ENTER THE FILE NAME")
-            return
-        self.mytext=self.mytext+'.xlsx'
-        isExist = os.path.exists(self.mytext)
+        self.mytext = os.path.join('D:\Attendance',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText())
+        #if self.mytext=='':
+            #QMessageBox.about(self, "ERROR", "ENTER THE FILE NAME")
+            #return
+        #self.mytext=self.mytext+'.xlsx'
+        isExist = os.path.exists(os.path.join(self.mytext,"attendance.xlsx"))
         if isExist==False:
+            os.makedirs(os.path.join('D:\Attendance',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))
             self.spread.createSpreadSheet(self.mytext)
         self.spread.updateSpreadSheet(self.faces_read,self.mytext)
+        QMessageBox.about(self, "SPREADSHEET CREATED", "SPREADSHEET UPDATED SUCCESSFULLY")
         self.sendMailBtn.setEnabled(True)
+
 
 
     def startStreaming(self):

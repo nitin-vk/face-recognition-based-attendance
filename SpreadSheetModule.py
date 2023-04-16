@@ -1,4 +1,4 @@
-import xlsxwriter
+import xlsxwriter,os
 import openpyxl
 import smtplib
 from datetime import datetime,date
@@ -11,7 +11,7 @@ class SpreadSheetModule():
         self.usn=usn
 
     def createSpreadSheet(self,dir):
-        workbook = xlsxwriter.Workbook(dir,{'in_memory':True})
+        workbook = xlsxwriter.Workbook(os.path.join(dir,"attendance.xlsx"),{'in_memory':True})
         worksheet = workbook.add_worksheet()
  
         worksheet.write('A1', 'USN')
@@ -36,7 +36,7 @@ class SpreadSheetModule():
     def updateSpreadSheet(self,peoplePresent,dir):
         #print("from spreadsheet {}".format(peoplePresent
         
-        wb_obj=openpyxl.load_workbook(dir)
+        wb_obj=openpyxl.load_workbook(os.path.join(dir,"attendance.xlsx"))
         sheet=wb_obj.active
         last_empty_row=len(list(sheet.rows))
         for i in range(2,last_empty_row+1):
@@ -54,7 +54,7 @@ class SpreadSheetModule():
                     sheet.cell(row=i,column=3).value='A'
                     target=sheet.cell(row=i,column=5).value
                 
-        wb_obj.save(dir)
+        wb_obj.save(os.path.join(dir,"attendance.xlsx"))
 
     def sendMail(self,dir):
         today=date.today()
@@ -62,7 +62,7 @@ class SpreadSheetModule():
         subject='JSSATEB ABSENT NOTIFICATION'
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
-        wb_obj=openpyxl.load_workbook(dir)
+        wb_obj=openpyxl.load_workbook(os.path.join(dir,"attendance.xlsx"))
         sheet=wb_obj.active
         last_empty_row=len(list(sheet.rows))
         for i in range(2,last_empty_row+1):
