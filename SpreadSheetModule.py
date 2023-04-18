@@ -39,6 +39,21 @@ class SpreadSheetModule():
         wb_obj=openpyxl.load_workbook(os.path.join(dir,"attendance.xlsx"))
         sheet=wb_obj.active
         last_empty_row=len(list(sheet.rows))
+        print(f"last empty row is {last_empty_row}")
+        for i in self.usn:
+            for j in range(2,last_empty_row+1):
+                if i==sheet.cell(row=j,column=1).value:
+                    break
+            if j==last_empty_row:
+                print(f"not there is {i}")
+                not_init_usn_index=self.usn.index(i)
+                not_init_name=self.people[not_init_usn_index]
+                sheet.cell(row=j+1,column=1,value=i)
+                sheet.cell(row=j+1,column=2,value=not_init_name)
+                sheet.cell(row=j+1,column=4,value=0)
+                sheet.cell(row=j+1,column=6,value='nitinvkavya@gmail.com')
+        wb_obj.save(os.path.join(dir,"attendance.xlsx"))
+        last_empty_row=len(list(sheet.rows))
         for i in range(2,last_empty_row+1):
             sheet.cell(row=i,column=3).value=''
         #print(last_empty_row)
