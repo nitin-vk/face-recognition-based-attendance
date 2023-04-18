@@ -1,5 +1,5 @@
 import xlsxwriter,os
-import openpyxl
+import openpyxl,pyttsx3
 import smtplib
 from datetime import datetime,date
 from email.mime.multipart import MIMEMultipart
@@ -35,7 +35,7 @@ class SpreadSheetModule():
 
     def updateSpreadSheet(self,peoplePresent,dir):
         #print("from spreadsheet {}".format(peoplePresent
-        
+        absentees=[]
         wb_obj=openpyxl.load_workbook(os.path.join(dir,"attendance.xlsx"))
         sheet=wb_obj.active
         last_empty_row=len(list(sheet.rows))
@@ -53,8 +53,14 @@ class SpreadSheetModule():
                 if sheet.cell(row=i,column=3).value=='':
                     sheet.cell(row=i,column=3).value='A'
                     target=sheet.cell(row=i,column=5).value
+                    absentees.append(sheet.cell(row=i,column=2).value)
                 
         wb_obj.save(os.path.join(dir,"attendance.xlsx"))
+        engine = pyttsx3.init()
+        engine.say("Please confirm the absentees list for today")
+        for name in absentees:
+            engine.say(name)
+            engine.runAndWait()
 
     def sendMail(self,dir):
         today=date.today()
