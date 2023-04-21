@@ -64,6 +64,7 @@ class FacesTrain(QtWidgets.QMainWindow):
         with open((os.path.join('D:/Compiled Files/',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText(),'encodings.txt')), "wb") as fp:
             pickle.dump((known_face_encodings, known_face_names), fp)
         self.doneFrame.show()
+        self.trainBtn.setEnabled(False)
         
                     
     
