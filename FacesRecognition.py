@@ -120,6 +120,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
     def sendMail(self):
         self.spread.sendMail(self.mytext)
         QMessageBox.about(self, "MAIL SENT", "MAIL SENT SUCCESSFULLY")
+        self.sendMailBtn.setEnabled(False)
 
     def ftpProcess(self):   
         mainobj=Main()
@@ -165,6 +166,9 @@ class FacesRecognition(QtWidgets.QMainWindow):
 
 
     def recognizeFaces(self):
+        if self.yml_file=='':
+            QMessageBox.about(self, "CLASS NOT SELECTED", "PLEASE SELECT THE CLASS")
+            return
         self.videoTypeWindow.show()
         self.frame_4.show()
         self.frame_5.show()
@@ -215,6 +219,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.spread.updateSpreadSheet(self.faces_read,self.mytext)
         QMessageBox.about(self, "SPREADSHEET CREATED", "SPREADSHEET UPDATED SUCCESSFULLY")
         self.sendMailBtn.setEnabled(True)
+        self.spreadSheetBtn.setEnabled(False)
 
 
 
@@ -295,6 +300,8 @@ class FacesRecognition(QtWidgets.QMainWindow):
 
         video.release()
         cv.destroyAllWindows()
+        self.fileLocation.clear()
+        self.yml_file=''
         self.spreadSheetBtn.setEnabled(True)
         if unknown_face==True:
             self.regisWidget.show()
@@ -303,7 +310,8 @@ class FacesRecognition(QtWidgets.QMainWindow):
             self.regisNameFrame.show()
             self.regisPhotoFrame.show()
             self.regisBtnFrame.show()
-        print(self.faces_read)
+        
+        #print(self.faces_read)
 
 
 
