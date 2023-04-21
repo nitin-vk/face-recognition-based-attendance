@@ -264,10 +264,9 @@ class FacesRecognition(QtWidgets.QMainWindow):
                 self.face_detected = True
             if self.face_detected==False:
                 cv.putText(frame, "EMPTY CLASS", (50, 50), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-            if not self.face_detected and frame_count / video.get(cv.CAP_PROP_FPS) >= 20:
+            if not self.face_detected and frame_count / video.get(cv.CAP_PROP_FPS) >= 30:
                 print("No faces detected in the first 30 seconds. Stopping video stream and face recognition.")
                 break
-            print(frame_count/video.get(cv.CAP_PROP_FPS))
             face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
             face_names = []
             for face_encoding in face_encodings:

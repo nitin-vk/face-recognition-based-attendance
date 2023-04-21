@@ -52,32 +52,42 @@ class SpreadSheetModule():
                 not_init_name=self.people[not_init_usn_index]
                 sheet.cell(row=j+1,column=1,value=i)
                 sheet.cell(row=j+1,column=2,value=not_init_name)
-                sheet.cell(row=j+1,column=4,value=0)
+                sheet.cell(row=j+1,column=4,value=1)
                 sheet.cell(row=j+1,column=6,value='nitinvkavya@gmail.com')
         wb_obj.save(os.path.join(dir,"attendance.xlsx"))
         last_empty_row=len(list(sheet.rows))
-        for i in range(2,last_empty_row+1):
-            sheet.cell(row=i,column=3).value=''
+        if len(peoplePresent)==0:
+             for i in range(2,last_empty_row+1):
+                sheet.cell(row=i,column=3).value='A'
+             engine = pyttsx3.init()
+             engine.say("Please confirm the absentees list for today")
+             engine.say("The whole class is absent")
+             engine.runAndWait()
+             wb_obj.save(os.path.join(dir,"attendance.xlsx"))
+            
+        else:
+            for i in range(2,last_empty_row+1):
+                sheet.cell(row=i,column=3).value=''
         #print(last_empty_row)
-        for j in peoplePresent:
+            for j in peoplePresent:
             #if (sum(peoplePresent[j])/len(peoplePresent[j]))<=55:
-            for i in range(2,last_empty_row+1):
-                if sheet.cell(row=i,column=1).value==j.split('-')[0]:
-                    sheet.cell(row=i,column=3).value='P'
-                    sheet.cell(row=i,column=4).value=sheet.cell(row=i,column=4).value+1
-                    break
-            for i in range(2,last_empty_row+1):
-                if sheet.cell(row=i,column=3).value=='':
-                    sheet.cell(row=i,column=3).value='A'
-                    target=sheet.cell(row=i,column=5).value
-                    absentees.append(sheet.cell(row=i,column=2).value)
+                for i in range(2,last_empty_row+1):
+                    if sheet.cell(row=i,column=1).value==j.split('-')[0]:
+                        sheet.cell(row=i,column=3).value='P'
+                        sheet.cell(row=i,column=4).value=sheet.cell(row=i,column=4).value+1
+                        break
+                for i in range(2,last_empty_row+1):
+                    if sheet.cell(row=i,column=3).value=='':
+                        sheet.cell(row=i,column=3).value='A'
+                        target=sheet.cell(row=i,column=5).value
+                        absentees.append(sheet.cell(row=i,column=2).value)
                 
-        wb_obj.save(os.path.join(dir,"attendance.xlsx"))
-        engine = pyttsx3.init()
-        engine.say("Please confirm the absentees list for today")
-        for name in absentees:
-            engine.say(name)
-            engine.runAndWait()
+            wb_obj.save(os.path.join(dir,"attendance.xlsx"))
+            engine = pyttsx3.init()
+            engine.say("Please confirm the absentees list for today")
+            for name in absentees:
+                engine.say(name)
+                engine.runAndWait()
 
     def sendMail(self,dir):
         today=date.today()
