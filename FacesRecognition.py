@@ -1,4 +1,4 @@
-import os,ftplib,shutil,datetime,ftplib,paramiko
+import os,ftplib,shutil,datetime,ftplib,paramiko,time
 import numpy as np
 import cv2 as cv
 from main import Main
@@ -251,11 +251,23 @@ class FacesRecognition(QtWidgets.QMainWindow):
         face_encodings = []
         self.faces_read=[]
         video = cv.VideoCapture(videoType)
-        while True:	
+        start_time = time.time()
+        self.face_detected=False
+        frame_count=0
+        while True:
             check, frame = video.read()
+            frame_count+=1
             small_frame = cv.resize(frame, (0,0), fx=0.5, fy= 0.5)
             rgb_small_frame = small_frame[:,:,::-1]
             face_locations = face_recognition.face_locations(rgb_small_frame)
+            if len(face_locations) > 0:
+                self.face_detected = True
+            if self.face_detected==False:
+                cv.putText(frame, "EMPTY CLASS", (50, 50), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            if not self.face_detected and frame_count / video.get(cv.CAP_PROP_FPS) >= 20:
+                print("No faces detected in the first 30 seconds. Stopping video stream and face recognition.")
+                break
+            print(frame_count/video.get(cv.CAP_PROP_FPS))
             face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
             face_names = []
             for face_encoding in face_encodings:
@@ -272,6 +284,8 @@ class FacesRecognition(QtWidgets.QMainWindow):
                             self.faces_read.append(name)
                 except:
                     pass
+        
+
 
             if len(face_names) == 0:
                 for (top,right,bottom,left) in face_locations:
