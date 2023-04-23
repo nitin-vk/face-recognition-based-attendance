@@ -287,7 +287,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         
 
 
-            if len(face_names) == 0 or face_distances[best_match_index]>0.40:
+            if len(face_names) == 0 or face_distances[best_match_index]>0.50:
                 for (top,right,bottom,left) in face_locations:
                     top*=2
                     right*=2
@@ -297,7 +297,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
                     font = cv.FONT_HERSHEY_DUPLEX
                     cv.putText(frame, 'Unknown', (left, top), font, 0.8, (0,0,0),1)
                     unknown_face=True
-            elif len(face_names)!=0 and face_distances[best_match_index]<=0.40:
+            elif len(face_names)!=0 and face_distances[best_match_index]<=0.50:
                 for (top,right,bottom,left), name in zip(face_locations, face_names):   
                     top*=2
                     right*=2
