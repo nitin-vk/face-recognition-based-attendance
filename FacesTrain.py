@@ -52,12 +52,15 @@ class FacesTrain(QtWidgets.QMainWindow):
         for i in os.listdir(dir):
             known_face_names.append(i)
         for i in os.listdir(dir):
+            people_encodings=[]
             self.trainProgress.setValue(int((int(known_face_names.index(i))+1)/(len(known_face_names))*100))
             self.trainProgress.setTextVisible(False)
             for file in os.listdir(os.path.join(dir,i)):
                 image = face_recognition.load_image_file(os.path.join(dir,i,file))
                 face_encoding = face_recognition.face_encodings(image)[0]
-                known_face_encodings.append(face_encoding)
+                people_encodings.append(face_encoding)
+            people_avg=sum(people_encodings)/len(people_encodings)
+            known_face_encodings.append(people_avg)
         folderName=self.ftp_dir
         if os.path.exists(os.path.join("D:/Compiled Files",self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))==False:
             os.mkdir(os.path.join("D:/Compiled Files",self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))
