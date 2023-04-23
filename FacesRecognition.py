@@ -275,6 +275,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
                 try:
                     matches = face_recognition.compare_faces(known_face_encodings, np.array(face_encoding), tolerance = 0.6)
                     face_distances = face_recognition.face_distance(known_face_encodings,face_encoding)
+                    print(f"face_distances is {face_distances}")
                     best_match_index = np.argmin(face_distances)
                     if matches[best_match_index]:
                         name = known_face_names[best_match_index]
@@ -305,6 +306,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
                     cv.rectangle(frame, (left,top),(right,bottom), (0,255,0), 2)
                     font = cv.FONT_HERSHEY_DUPLEX
                     cv.putText(frame, name, (left, top), font, 0.8, (255,255,255),1)
+                    cv.putText(frame,str(face_distances[best_match_index]),(right,bottom),font,0.8,(255,255,255),1)
 
             cv.imshow("Face Recognition Panel",frame)
 
