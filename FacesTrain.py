@@ -63,7 +63,7 @@ class FacesTrain(QtWidgets.QMainWindow):
             known_face_encodings.append(people_avg)
         folderName=self.ftp_dir
         if os.path.exists(os.path.join("D:/Compiled Files",self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))==False:
-            os.mkdir(os.path.join("D:/Compiled Files",self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))
+            os.makedirs(os.path.join("D:/Compiled Files",self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))
         with open((os.path.join('D:/Compiled Files/',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText(),'encodings.txt')), "wb") as fp:
             pickle.dump((known_face_encodings, known_face_names), fp)
         self.doneFrame.show()
