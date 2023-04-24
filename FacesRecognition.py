@@ -61,7 +61,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.sshBtn.clicked.connect(self.startSSH)
 
     def startSSH(self):
-        self.yml_file=r'\\DESKTOP-B51HC2A\Compiled Files'+'\\'+self.branchComboBox.currentText()+'\\'+self.yearComboBox.currentText()+'\\'+self.sectionComboBox.currentText()+'\\'+'encodings.txt'
+        self.yml_file=r'\\NITIN-PC\Compiled Files'+'\\'+self.branchComboBox.currentText()+'\\'+self.yearComboBox.currentText()+'\\'+self.sectionComboBox.currentText()+'\\'+'encodings.txt'
         if self.yml_file!='':
             self.fileLocation.insertPlainText('encodings.txt')
         self.afterSelectFrame.show()
