@@ -115,7 +115,7 @@ class Student_ID(QtWidgets.QMainWindow):
         id_card.HTMLgen()
         id_card.PDFgen(str(recognized_usn)+"-"+str(recognized_name))
         self.idPhoto=""
-        self.yml_filr=""
+        self.yml_file=""
         
         
 
