@@ -61,6 +61,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.sshBtn.clicked.connect(self.startSSH)
 
     def startSSH(self):
+        self.fileLocation.clear()
         self.yml_file=r'\\NITIN-PC\Compiled Files'+'\\'+self.branchComboBox.currentText()+'\\'+self.yearComboBox.currentText()+'\\'+self.sectionComboBox.currentText()+'\\'+'encodings.txt'
         if self.yml_file!='':
             self.fileLocation.insertPlainText('encodings.txt')
@@ -127,6 +128,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         
     
     def serachLocalFiles(self):
+        self.fileLocation.clear()
         self.yml_file=os.path.join('D:\Compiled Files',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText(),'encodings.txt')
         if os.path.exists(self.yml_file)==False:
             QMessageBox.information(self,"Error","Import the file from FTP first")
