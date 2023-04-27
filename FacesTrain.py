@@ -167,6 +167,25 @@ QProgressBar::chunk {
 QWidget{
     background-color:#E0E0E0;
 }
+QComboBox {
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 2px;
+    selection-background-color: lightgray;
+}
+
+QComboBox:drop-down {
+    width: 25px;
+    border-left: 1px solid gray;
+}
+
+QComboBox QAbstractItemView {
+    background-color: white;
+    border: 1px solid gray;
+    selection-background-color: lightgray;
+}
+
 
 """
 
