@@ -44,8 +44,20 @@ class FacesTrain(QtWidgets.QMainWindow):
             return
 
        
-        
+        self.doneFrame.hide()
         self.progressFrame.show()
+        self.trainProgress.setStyleSheet("""
+            QProgressBar {
+            border: 2px solid #2196F3;
+            border-radius: 5px;
+            background-color: #E0E0E0;
+                        }
+        QProgressBar::chunk {
+            background-color: #CD96CD;
+            width: 10px; 
+            margin: 0.5px;
+            }
+        """)
         dir=self.dir
         known_face_encodings = []
         known_face_names=[]
@@ -62,6 +74,19 @@ class FacesTrain(QtWidgets.QMainWindow):
             people_avg=sum(people_encodings)/len(people_encodings)
             known_face_encodings.append(people_avg)
         folderName=self.ftp_dir
+        if self.trainProgress.maximum():
+            self.trainProgress.setStyleSheet("""
+            QProgressBar {
+            border: 2px solid #2196F3;
+            border-radius: 5px;
+            background-color: #E0E0E0;
+                        }
+        QProgressBar::chunk {
+            background-color: green;
+            width: 10px; 
+            margin: 0.5px;
+            }
+        """)
         if os.path.exists(os.path.join("D:/Compiled Files",self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))==False:
             os.makedirs(os.path.join("D:/Compiled Files",self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText()))
         with open((os.path.join('D:/Compiled Files/',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText(),'encodings.txt')), "wb") as fp:
