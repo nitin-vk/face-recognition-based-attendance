@@ -4,19 +4,23 @@ import cv2 as cv
 from main import Main
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import QProcess,QUrl
-from PyQt5.QtWidgets import QFileDialog,QMessageBox
+from PyQt5.QtWidgets import QFileDialog,QMessageBox,QApplication
 from PyQt5.QtGui import QDesktopServices
 import sys,pickle,face_recognition
 from SpreadSheetModule import SpreadSheetModule
 from PyQt5.QtMultimedia import QCamera, QCameraImageCapture, QCameraInfo
 from PyQt5.QtMultimediaWidgets import QCameraViewfinder
 from PyQt5.QtGui import QPixmap
+from Login import Login,is_logged_in
+
 
 class FacesRecognition(QtWidgets.QMainWindow):
     def __init__(self):
+        if is_logged_in==False:
+            exit()
         super(FacesRecognition, self).__init__()
         uic.loadUi('FacesRecognition.ui', self)
-        self.show()
+        self.show()    
         self.newStudentPic=''
         self.yml_file=''
         self.haar_cascade=''
