@@ -212,7 +212,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.spreadOkBtn.hide()
         self.spreadCancelBtn.hide()
         self.listWidget.hide()
-        self.spread=SpreadSheetModule(self.people,self.usn)
+        self.spread=SpreadSheetModule(self.people,self.usn,self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText())
         self.mytext = os.path.join('D:\Attendance',self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText())
         #if self.mytext=='':
             #QMessageBox.about(self, "ERROR", "ENTER THE FILE NAME")

@@ -3,6 +3,7 @@ import sys,sqlite3
 from PyQt5.QtWidgets import QMessageBox,QApplication
 
 is_logged_in = False
+username=''
 
 class Login(QtWidgets.QMainWindow):
 
@@ -13,6 +14,7 @@ class Login(QtWidgets.QMainWindow):
         self.login.clicked.connect(self.loginUser)
 
     def loginUser(self):
+        global username
         username=self.emailfield.text()
         password=self.passwordfield.text()
         if len(username)==0 or len(password)==0:
