@@ -534,6 +534,26 @@
       <string>4</string>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>6</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>7</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>8</string>
+     </property>
+    </item>
    </widget>
    <widget class="QLabel" name="yearLabel">
     <property name="geometry">
@@ -553,8 +573,11 @@
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="text">
-     <string>YEAR</string>
+     <string>SEM</string>
     </property>
    </widget>
    <widget class="QPushButton" name="sshBtn">
@@ -570,6 +593,9 @@
      <string>SSH</string>
     </property>
    </widget>
+   <zorder>sshBtn</zorder>
+   <zorder>yearComboBox</zorder>
+   <zorder>yearLabel</zorder>
   </widget>
   <widget class="QFrame" name="frame_10">
    <property name="geometry">

@@ -386,6 +386,9 @@ QPushButton {
     color: white;
     font-size: 16px;
 }
+QLabel{
+"background-color: #F5F5F5; color: #333333; font-size: 16pt; font-weight: bold; text-decoration: underline"
+}
 
 """
 
