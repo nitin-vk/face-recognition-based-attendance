@@ -1,4 +1,4 @@
-import os
+import os,socket
 import cv2 as cv
 import numpy as np
 from PyQt5 import QtWidgets, uic
@@ -23,6 +23,44 @@ class FacesTrain(QtWidgets.QMainWindow):
         self.trainBtn.clicked.connect(self.trainFaces)
         self.progressFrame.hide()
         self.doneFrame.hide()
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        host = socket.gethostname()
+        port = 12345
+        s.bind((host, port))
+        s.listen(1)
+        print('Server listening on {}:{}'.format(host, port))
+
+        while True:
+            conn, addr = s.accept()
+            print('Received connection from {}'.format(addr))
+            self.data = conn.recv(1024).decode()
+            print('Received message: {}'.format(self.data))
+            response = 'Training done'
+            self.train()
+            conn.send(response.encode())
+            conn.close()
+
+    def train(self):
+        dir_list=self.data.split('-')
+        dir=os.path.join("D:/Faces",dir_list[0],dir_list[1],dir_list[2])
+        known_face_encodings=[]
+        known_face_names=[]
+        for i in os.listdir(dir):
+            known_face_names.append(i)
+        for i in os.listdir(dir):
+            people_encodings=[]
+            for file in os.listdir(os.path.join(dir,i)):
+                image=face_recognition.load_image_file(os.path.join(dir,i,file))
+                face_encoidng=face_recognition.face_encodings(image)[0]
+                people_encodings.append(face_encoidng)
+            people_avg=sum(people_encodings)/len(people_encodings)
+            known_face_encodings.append(people_avg)
+        if os.path.exists(os.path.join("D:/Compied Files",dir_list[0],dir_list[1],dir_list[2]))==False:
+            os.makedirs(os.path.join("D:/Compied Files",dir_list[0],dir_list[1],dir_list[2]))
+        with open((os.path.join("D:/Compied Files",dir_list[0],dir_list[1],dir_list[2],"encodings.txt")),"wb") as fp:
+            pickle.dump((known_face_encodings,known_face_names),fp)
+        print("Trained")
+       
 
     
     def selectDirectory(self):
