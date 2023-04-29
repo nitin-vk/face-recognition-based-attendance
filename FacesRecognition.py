@@ -66,7 +66,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
 
     def startSSH(self):
         self.fileLocation.clear()
-        self.yml_file=r'\\ADMIN\Compiled Files'+'\\'+self.branchComboBox.currentText()+'\\'+self.yearComboBox.currentText()+'\\'+self.sectionComboBox.currentText()+'\\'+'encodings.txt'
+        self.yml_file=r'\\DESKTOP-B51HC2A\Compiled Files'+'\\'+self.branchComboBox.currentText()+'\\'+self.yearComboBox.currentText()+'\\'+self.sectionComboBox.currentText()+'\\'+'encodings.txt'
         if self.yml_file!='':
             self.fileLocation.insertPlainText('encodings.txt')
         self.afterSelectFrame.show()
@@ -92,13 +92,24 @@ class FacesRecognition(QtWidgets.QMainWindow):
             self.regisUsnInput.setPlainText("")
             self.regisNameInput.setPlainText("")
             self.newStudentImage=""'''
-            network_path=r"\\ADMIN\Faces"
+            network_path=r"\\DESKTOP-B51HC2A\Faces"
             new_dir=os.path.join(network_path,self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText(),self.regisUsnInput.toPlainText()+'-'+self.regisNameInput.toPlainText())
             if not os.path.exists(new_dir):
                 os.makedirs(new_dir)
             cv.imwrite(self.regisUsnInput.toPlainText()+'-'+self.regisNameInput.toPlainText()+'.jpg',self.newStudentPic)
             shutil.move(self.regisUsnInput.toPlainText()+'-'+self.regisNameInput.toPlainText()+'.jpg', new_dir)
             print("FILE MOVED SUCCESSFULLY")
+            import socket
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            host = '192.168.0.106'  
+            port = 12345  
+            s.connect((host, port))
+            message = self.branchComboBox.currentText()+"-"+self.yearComboBox.currentText()+"-"+self.sectionComboBox.currentText()
+            s.send(message.encode())
+            response = s.recv(1024).decode()
+            print('Received response: {}'.format(response))
+            s.close()
+
         
     def stopRegistration(self):
         self.regisWidget.hide()
