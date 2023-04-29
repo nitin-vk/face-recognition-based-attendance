@@ -8,21 +8,13 @@ import ftplib
 from ftplib import FTP
 from PyQt5.QtGui import QPixmap
 import pyqt_design,face_recognition,pickle
+from PyQt5.QtCore import QThread
 
-
-class FacesTrain(QtWidgets.QMainWindow):
+class SocketThread(QThread):
     def __init__(self):
-        super(FacesTrain, self).__init__()
-        uic.loadUi('FacesTrain.ui', self)
-        self.show()
-        self.dir=''
-        self.haar_cascade=''
-        self.ftp_dir=''
-        self.selectClassBtn.clicked.connect(self.selectDirectory)
-        self.trainBtn.setEnabled(False)
-        self.trainBtn.clicked.connect(self.trainFaces)
-        self.progressFrame.hide()
-        self.doneFrame.hide()
+        super().__init__()
+
+    def run(self):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         host = socket.gethostname()
         port = 12345
@@ -39,7 +31,7 @@ class FacesTrain(QtWidgets.QMainWindow):
             self.train()
             conn.send(response.encode())
             conn.close()
-
+    
     def train(self):
         dir_list=self.data.split('-')
         dir=os.path.join("D:/Faces",dir_list[0],dir_list[1],dir_list[2])
@@ -55,11 +47,28 @@ class FacesTrain(QtWidgets.QMainWindow):
                 people_encodings.append(face_encoidng)
             people_avg=sum(people_encodings)/len(people_encodings)
             known_face_encodings.append(people_avg)
-        if os.path.exists(os.path.join("D:/Compied Files",dir_list[0],dir_list[1],dir_list[2]))==False:
-            os.makedirs(os.path.join("D:/Compied Files",dir_list[0],dir_list[1],dir_list[2]))
-        with open((os.path.join("D:/Compied Files",dir_list[0],dir_list[1],dir_list[2],"encodings.txt")),"wb") as fp:
+        if os.path.exists(os.path.join("D:/Compiled Files",dir_list[0],dir_list[1],dir_list[2]))==False:
+            os.makedirs(os.path.join("D:/Compiled Files",dir_list[0],dir_list[1],dir_list[2]))
+        with open((os.path.join("D:/Compiled Files",dir_list[0],dir_list[1],dir_list[2],"encodings.txt")),"wb") as fp:
             pickle.dump((known_face_encodings,known_face_names),fp)
         print("Trained")
+
+
+class FacesTrain(QtWidgets.QMainWindow):
+    def __init__(self):
+        super(FacesTrain, self).__init__()
+        uic.loadUi('FacesTrain.ui', self)
+        self.show()
+        self.dir=''
+        self.haar_cascade=''
+        self.ftp_dir=''
+        self.selectClassBtn.clicked.connect(self.selectDirectory)
+        self.trainBtn.setEnabled(False)
+        self.trainBtn.clicked.connect(self.trainFaces)
+        self.progressFrame.hide()
+        self.doneFrame.hide()
+    
+    
        
 
     
@@ -229,4 +238,7 @@ QComboBox QAbstractItemView {
 
 app.setStyleSheet(style)
 window = FacesTrain()
+socket_thread=SocketThread()
+socket_thread.start()
+#window.start_socket_server()
 app.exec_()
