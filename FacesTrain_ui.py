@@ -51,7 +51,7 @@ class Ui_Form(object):
         self.doneFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.doneFrame.setObjectName("doneFrame")
         self.trainingDone = QtWidgets.QTextEdit(self.doneFrame)
-        self.trainingDone.setGeometry(QtCore.QRect(130, 0, 111, 31))
+        self.trainingDone.setGeometry(QtCore.QRect(130, 0, 191, 31))
         font = QtGui.QFont()
         font.setFamily("Cambria")
         font.setBold(True)
@@ -120,8 +120,8 @@ class Ui_Form(object):
         self.trainingDone.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Cambria\'; font-size:7.8pt; font-weight:600; font-style:italic;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#00ff00;\">TRAINING DONE</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'Cambria\'; font-size:8pt; font-weight:600; font-style:italic;\">\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:7.8pt; color:#00ff00;\">TRAINING DONE</span></p></body></html>"))
         self.branchComboBox.setItemText(0, _translate("Form", "CSE"))
         self.branchComboBox.setItemText(1, _translate("Form", "ISE"))
         self.branchComboBox.setItemText(2, _translate("Form", "ECE"))
