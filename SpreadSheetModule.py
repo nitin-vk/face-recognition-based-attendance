@@ -14,13 +14,13 @@ class SpreadSheetModule():
         self.branch=branch
         self.sem=sem
         self.section=section
-        self.network_path=r"\\DESKTOP-B51HC2A\Attendance"
+        self.network_path=r"\\ADMIN\Attendance"
 
     def createSpreadSheet(self,dir):
         workbook = xlsxwriter.Workbook(os.path.join(dir,"attendance.xlsx"),{'in_memory':True})
         if os.path.exists(os.path.join(self.network_path,username,self.branch,self.sem,self.section))==False:
             print("Does not exist")
-            os.makedirs(os.path.join(r"\\DESKTOP-B51HC2A\Attendance",username,self.branch,self.sem,self.section))
+            os.makedirs(os.path.join(r"\\ADMIN\Attendance",username,self.branch,self.sem,self.section))
         worksheet = workbook.add_worksheet()
  
         worksheet.write('A1', 'USN')
@@ -41,7 +41,7 @@ class SpreadSheetModule():
             s+=1
             r+=1
         workbook.close()
-        shutil.copy(os.path.join(dir,'attendance.xlsx'),os.path.join(r"\\DESKTOP-B51HC2A\Attendance",username,self.branch,self.sem,self.section,'attendance.xlsx'))
+        shutil.copy(os.path.join(dir,'attendance.xlsx'),os.path.join(r"\\ADMIN\Attendance",username,self.branch,self.sem,self.section,'attendance.xlsx'))
 
     def updateSpreadSheet(self,peoplePresent,dir):
         #print("from spreadsheet {}".format(peoplePresent
@@ -64,7 +64,7 @@ class SpreadSheetModule():
                 sheet.cell(row=j+1,column=4,value=1)
                 sheet.cell(row=j+1,column=6,value='nitinvkavya@gmail.com')
         wb_obj.save(os.path.join(dir,"attendance.xlsx"))
-        shutil.copy(os.path.join(dir,'attendance.xlsx'),os.path.join(r"\\DESKTOP-B51HC2A\Attendance",username,self.branch,self.sem,self.section,'attendance.xlsx'))
+        shutil.copy(os.path.join(dir,'attendance.xlsx'),os.path.join(r"\\ADMIN\Attendance",username,self.branch,self.sem,self.section,'attendance.xlsx'))
         last_empty_row=len(list(sheet.rows))
         if len(peoplePresent)==0:
              for i in range(2,last_empty_row+1):
@@ -74,7 +74,7 @@ class SpreadSheetModule():
              engine.say("The whole class is absent")
              engine.runAndWait()
              wb_obj.save(os.path.join(dir,"attendance.xlsx"))
-             shutil.copy(os.path.join(dir,'attendance.xlsx'),os.path.join(r"\\DESKTOP-B51HC2A\Attendance",username,self.branch,self.sem,self.section,'attendance.xlsx'))
+             shutil.copy(os.path.join(dir,'attendance.xlsx'),os.path.join(r"\\ADMIN\Attendance",username,self.branch,self.sem,self.section,'attendance.xlsx'))
             
         else:
             for i in range(2,last_empty_row+1):
@@ -94,7 +94,7 @@ class SpreadSheetModule():
                         absentees.append(sheet.cell(row=i,column=2).value)
                 
             wb_obj.save(os.path.join(dir,"attendance.xlsx"))
-            shutil.copy(os.path.join(dir,'attendance.xlsx'),os.path.join(r"\\DESKTOP-B51HC2A\\Attendance",username,self.branch,self.sem,self.section,"attendance.xlsx"))
+            shutil.copy(os.path.join(dir,'attendance.xlsx'),os.path.join(r"\\ADMIN\\Attendance",username,self.branch,self.sem,self.section,"attendance.xlsx"))
             engine = pyttsx3.init()
             engine.say("Please confirm the absentees list for today")
             for name in absentees:

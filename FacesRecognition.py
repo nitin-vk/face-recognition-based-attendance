@@ -66,7 +66,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
 
     def startSSH(self):
         self.fileLocation.clear()
-        self.yml_file=r'\\NITIN-PC\Compiled Files'+'\\'+self.branchComboBox.currentText()+'\\'+self.yearComboBox.currentText()+'\\'+self.sectionComboBox.currentText()+'\\'+'encodings.txt'
+        self.yml_file=r'\\ADMIN\Compiled Files'+'\\'+self.branchComboBox.currentText()+'\\'+self.yearComboBox.currentText()+'\\'+self.sectionComboBox.currentText()+'\\'+'encodings.txt'
         if self.yml_file!='':
             self.fileLocation.insertPlainText('encodings.txt')
         self.afterSelectFrame.show()
@@ -92,7 +92,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
             self.regisUsnInput.setPlainText("")
             self.regisNameInput.setPlainText("")
             self.newStudentImage=""'''
-            network_path=r"\\NITIN-PC\Faces"
+            network_path=r"\\ADMIN\Faces"
             new_dir=os.path.join(network_path,self.branchComboBox.currentText(),self.yearComboBox.currentText(),self.sectionComboBox.currentText(),self.regisUsnInput.toPlainText()+'-'+self.regisNameInput.toPlainText())
             if not os.path.exists(new_dir):
                 os.makedirs(new_dir)
