@@ -1,6 +1,7 @@
-import os,ftplib,shutil,datetime,ftplib,paramiko,time
+import os,ftplib,shutil,datetime,ftplib,paramiko,time,smtplib
 import numpy as np
 import cv2 as cv
+from datetime import date,datetime
 from main import Main
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import QProcess,QUrl
@@ -11,7 +12,9 @@ from SpreadSheetModule import SpreadSheetModule
 from PyQt5.QtMultimedia import QCamera, QCameraImageCapture, QCameraInfo
 from PyQt5.QtMultimediaWidgets import QCameraViewfinder
 from PyQt5.QtGui import QPixmap
-from Login import Login,is_logged_in
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from Login import Login,is_logged_in,class_room,username
 
 
 class FacesRecognition(QtWidgets.QMainWindow):
@@ -30,6 +33,11 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.usn=[]
         self.people=[]
         self.faces_read={}
+        self.class_room=class_room
+        if self.class_room!=None:
+            self.yearComboBox.setCurrentText(self.class_room[0])
+            self.branchComboBox.setCurrentText(self.class_room[2:len(self.class_room)-1])
+            self.sectionComboBox.setCurrentText(self.class_room[len(self.class_room)-1])
         self.afterSelectFrame.hide()
         self.recognizeBtn.hide()
         self.frame_4.hide()
@@ -75,6 +83,23 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.recognizeBtn.show()
         self.sendMailBtn.show()
         self.sendMailBtn.setEnabled(False)
+        fromaddr = 'kavyatintin@gmail.com'
+        target='nitinvkavya@gmail.com'
+        subject=f'EXTRA CLASS FOR {username}'
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        msg = MIMEMultipart()
+        msg['From'] = fromaddr
+        msg['To'] = target
+        msg['Subject'] = subject
+        msg.attach(MIMEText("Professor "+username+" is willing to take an extra class for "+self.yearComboBox.currentText()+self.branchComboBox.currentText()+self.sectionComboBox.currentText()+" today at "+str(current_time)))
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login(fromaddr, 'qpyjnhpiadfzxzai')
+        server.sendmail(fromaddr, target, msg.as_string())
+        server.quit()
 
     def registerStudent(self):
         if self.regisUsnInput.toPlainText() =="":
@@ -179,6 +204,23 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.recognizeBtn.show()
         self.sendMailBtn.show()
         self.sendMailBtn.setEnabled(False)
+        fromaddr = 'kavyatintin@gmail.com'
+        target='nitinvkavya@gmail.com'
+        subject=f'EXTRA CLASS FOR {username}'
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        msg = MIMEMultipart()
+        msg['From'] = fromaddr
+        msg['To'] = target
+        msg['Subject'] = subject
+        msg.attach(MIMEText("Professor "+username+" is willing to take an extra class for "+self.yearComboBox.currentText()+self.branchComboBox.currentText()+self.sectionComboBox.currentText()+" today at "+str(current_time)))
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login(fromaddr, 'qpyjnhpiadfzxzai')
+        server.sendmail(fromaddr, target, msg.as_string())
+        server.quit()
        
 
 
