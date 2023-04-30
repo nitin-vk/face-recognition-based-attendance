@@ -4,7 +4,7 @@ import cv2 as cv
 from datetime import date,datetime
 from main import Main
 from PyQt5 import QtWidgets, uic
-from PyQt5.QtCore import QProcess,QUrl
+from PyQt5.QtCore import QProcess,QUrl,QThread,pyqtSignal
 from PyQt5.QtWidgets import QFileDialog,QMessageBox,QApplication
 from PyQt5.QtGui import QDesktopServices
 import sys,pickle,face_recognition
@@ -15,6 +15,35 @@ from PyQt5.QtGui import QPixmap
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from Login import Login,is_logged_in,class_room,username
+
+class Worker(QThread):
+    finsihed=pyqtSignal()
+    progress=pyqtSignal(int)
+
+    def __init__(self,year,branch,section,parent=None):
+        self.year=year
+        self.branch=branch
+        self.section=section
+        super().__init__(parent)
+
+    def run(self):
+        fromaddr = 'kavyatintin@gmail.com'
+        target='nitinvkavya@gmail.com'
+        subject=f'EXTRA CLASS FOR {username}'
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        msg = MIMEMultipart()
+        msg['From'] = fromaddr
+        msg['To'] = target
+        msg['Subject'] = subject
+        msg.attach(MIMEText("Professor "+username+" is willing to take an extra class for "+self.year+self.branch+self.section+" today at "+str(current_time)))
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login(fromaddr, 'qpyjnhpiadfzxzai')
+        server.sendmail(fromaddr, target, msg.as_string())
+        server.quit()
 
 
 class FacesRecognition(QtWidgets.QMainWindow):
@@ -83,23 +112,13 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.recognizeBtn.show()
         self.sendMailBtn.show()
         self.sendMailBtn.setEnabled(False)
-        fromaddr = 'kavyatintin@gmail.com'
-        target='nitinvkavya@gmail.com'
-        subject=f'EXTRA CLASS FOR {username}'
-        now = datetime.now()
-        current_time = now.strftime("%H:%M:%S")
-        msg = MIMEMultipart()
-        msg['From'] = fromaddr
-        msg['To'] = target
-        msg['Subject'] = subject
-        msg.attach(MIMEText("Professor "+username+" is willing to take an extra class for "+self.yearComboBox.currentText()+self.branchComboBox.currentText()+self.sectionComboBox.currentText()+" today at "+str(current_time)))
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.ehlo()
-        server.starttls()
-        server.ehlo()
-        server.login(fromaddr, 'qpyjnhpiadfzxzai')
-        server.sendmail(fromaddr, target, msg.as_string())
-        server.quit()
+        self.worker_thread = QThread()
+        self.worker = Worker(self.yearComboBox.currentText(),self.branchComboBox.currentText(),self.sectionComboBox.currentText())
+        self.worker.moveToThread(self.worker_thread)
+        self.worker_thread.started.connect(self.worker.run)
+        self.worker.finished.connect(self.worker_thread.quit)       
+        self.worker_thread.start()
+        
 
     def registerStudent(self):
         if self.regisUsnInput.toPlainText() =="":
@@ -204,23 +223,12 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.recognizeBtn.show()
         self.sendMailBtn.show()
         self.sendMailBtn.setEnabled(False)
-        fromaddr = 'kavyatintin@gmail.com'
-        target='nitinvkavya@gmail.com'
-        subject=f'EXTRA CLASS FOR {username}'
-        now = datetime.now()
-        current_time = now.strftime("%H:%M:%S")
-        msg = MIMEMultipart()
-        msg['From'] = fromaddr
-        msg['To'] = target
-        msg['Subject'] = subject
-        msg.attach(MIMEText("Professor "+username+" is willing to take an extra class for "+self.yearComboBox.currentText()+self.branchComboBox.currentText()+self.sectionComboBox.currentText()+" today at "+str(current_time)))
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.ehlo()
-        server.starttls()
-        server.ehlo()
-        server.login(fromaddr, 'qpyjnhpiadfzxzai')
-        server.sendmail(fromaddr, target, msg.as_string())
-        server.quit()
+        self.worker_thread = QThread()
+        self.worker = Worker(self.yearComboBox.currentText(),self.branchComboBox.currentText(),self.sectionComboBox.currentText())
+        self.worker.moveToThread(self.worker_thread)
+        self.worker_thread.started.connect(self.worker.run)
+        self.worker.finished.connect(self.worker_thread.quit)
+        self.worker_thread.start()
        
 
 
