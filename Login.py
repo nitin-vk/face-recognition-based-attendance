@@ -36,15 +36,15 @@ class Login(QtWidgets.QMainWindow):
                 current_time=datetime.datetime.now()
                 formatted_time=current_time.strftime("%H:%M:%S")[:2]
                 current_day=datetime.datetime.now().strftime("%A").lower()
-                if int(formatted_time)>16:
+                if current_day=="sunday":
+                    is_logged_in=False
+                    QMessageBox.warning(self,"SUNDAY","TODAY IS A SUNDAY. TAKE A BREAK")
+                elif int(formatted_time)>16:
                     is_logged_in=False
                     QMessageBox.warning(self,"TIME UP","ITS LATE. GET HOME SOON")
-                #elif int(formatted_time)<9:
-                    #is_logged_in=False
-                    #QMessageBox.warning(self,"TOO SOON","YOU ARE A TOO SOON FOR THE CLASS")
-                #elif current_day=="sunday":
-                    #is_logged_in=False
-                    #MessageBox.warning(self,"SUNDAY","TODAY IS A SUNDAY. TAKE A BREAK")
+                elif int(formatted_time)<9:
+                    is_logged_in=False
+                    QMessageBox.warning(self,"TOO SOON","YOU ARE A TOO SOON FOR THE CLASS")
                 else:
                     if formatted_time[0]=='0':
                         formatted_time=formatted_time[1:]
