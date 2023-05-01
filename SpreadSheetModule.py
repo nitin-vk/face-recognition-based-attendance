@@ -5,6 +5,44 @@ from datetime import datetime,date
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from Login import username
+from PyQt5.QtCore import QThread,pyqtSignal
+from PyQt5.QtWidgets import QMessageBox
+
+class Worker(QThread):
+    finished=pyqtSignal()
+    progress=pyqtSignal(int)
+
+    def __init__(self,directory,parent=None):
+        self.directory=directory
+        super().__init__(parent)
+
+    def run(self):
+        today=date.today()
+        fromaddr = 'kavyatintin@gmail.com'
+        subject='JSSATEB ABSENT NOTIFICATION'
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        wb_obj=openpyxl.load_workbook(os.path.join(self.directory,"attendance.xlsx"))
+        sheet=wb_obj.active
+        last_empty_row=len(list(sheet.rows))
+        for i in range(2,last_empty_row+1):
+            if sheet.cell(row=i,column=3).value=='A':
+                target=sheet.cell(row=i,column=6).value
+                msg = MIMEMultipart()
+                msg['From'] = fromaddr
+                msg['To'] = target
+                msg['Subject'] = subject
+                msg.attach(MIMEText("This mail is being sent by the management of JSSATEB. This is to inform that your child "+str(sheet.cell(row=i,column=2).value)+" with usn "+str(sheet.cell(row=i,column=1).value)+" is absent for the class on "+str(today)+" held at "+current_time))
+                    
+                server = smtplib.SMTP('smtp.gmail.com', 587)
+                server.ehlo()
+                server.starttls()
+                server.ehlo()
+                server.login(fromaddr, 'qpyjnhpiadfzxzai')
+                server.sendmail(fromaddr, target, msg.as_string())
+                server.quit()
+        QMessageBox.about(self, "MAIL SENT", "MAIL SENT SUCCESSFULLY")
+
 
 class SpreadSheetModule():
     def __init__(self,people,usn,branch,sem,section):
@@ -14,13 +52,13 @@ class SpreadSheetModule():
         self.branch=branch
         self.sem=sem
         self.section=section
-        self.network_path=r"\\ADMIN\Attendance"
+        self.network_path=r"\\DESKTOP-B51HC2A\Attendance"
 
     def createSpreadSheet(self,dir):
         workbook = xlsxwriter.Workbook(os.path.join(dir,"attendance.xlsx"),{'in_memory':True})
         if os.path.exists(os.path.join(self.network_path,username,self.branch,self.sem,self.section))==False:
             print("Does not exist")
-            os.makedirs(os.path.join(r"\\ADMIN\Attendance",username,self.branch,self.sem,self.section))
+            os.makedirs(os.path.join(r"\\DESKTOP-B51HC2A\Attendance",username,self.branch,self.sem,self.section))
         worksheet = workbook.add_worksheet()
  
         worksheet.write('A1', 'USN')
@@ -41,7 +79,7 @@ class SpreadSheetModule():
             s+=1
             r+=1
         workbook.close()
-        shutil.copy(os.path.join(dir,'attendance.xlsx'),os.path.join(r"\\ADMIN\Attendance",username,self.branch,self.sem,self.section,'attendance.xlsx'))
+        shutil.copy(os.path.join(dir,'attendance.xlsx'),os.path.join(r"\\DESKTOP-B51HC2A\Attendance",username,self.branch,self.sem,self.section,'attendance.xlsx'))
 
     def updateSpreadSheet(self,peoplePresent,dir):
         #print("from spreadsheet {}".format(peoplePresent
@@ -64,7 +102,7 @@ class SpreadSheetModule():
                 sheet.cell(row=j+1,column=4,value=1)
                 sheet.cell(row=j+1,column=6,value='nitinvkavya@gmail.com')
         wb_obj.save(os.path.join(dir,"attendance.xlsx"))
-        shutil.copy(os.path.join(dir,'attendance.xlsx'),os.path.join(r"\\ADMIN\Attendance",username,self.branch,self.sem,self.section,'attendance.xlsx'))
+        shutil.copy(os.path.join(dir,'attendance.xlsx'),os.path.join(r"\\DESKTOP-B51HC2A\Attendance",username,self.branch,self.sem,self.section,'attendance.xlsx'))
         last_empty_row=len(list(sheet.rows))
         if len(peoplePresent)==0:
              for i in range(2,last_empty_row+1):
@@ -74,7 +112,7 @@ class SpreadSheetModule():
              engine.say("The whole class is absent")
              engine.runAndWait()
              wb_obj.save(os.path.join(dir,"attendance.xlsx"))
-             shutil.copy(os.path.join(dir,'attendance.xlsx'),os.path.join(r"\\ADMIN\Attendance",username,self.branch,self.sem,self.section,'attendance.xlsx'))
+             shutil.copy(os.path.join(dir,'attendance.xlsx'),os.path.join(r"\\DESKTOP-B51HC2A\Attendance",username,self.branch,self.sem,self.section,'attendance.xlsx'))
             
         else:
             for i in range(2,last_empty_row+1):
@@ -94,7 +132,7 @@ class SpreadSheetModule():
                         absentees.append(sheet.cell(row=i,column=2).value)
                 
             wb_obj.save(os.path.join(dir,"attendance.xlsx"))
-            shutil.copy(os.path.join(dir,'attendance.xlsx'),os.path.join(r"\\ADMIN\\Attendance",username,self.branch,self.sem,self.section,"attendance.xlsx"))
+            shutil.copy(os.path.join(dir,'attendance.xlsx'),os.path.join(r"\\DESKTOP-B51HC2A\\Attendance",username,self.branch,self.sem,self.section,"attendance.xlsx"))
             engine = pyttsx3.init()
             engine.say("Please confirm the absentees list for today")
             for name in absentees:
@@ -102,30 +140,12 @@ class SpreadSheetModule():
                 engine.runAndWait()
 
     def sendMail(self,dir):
-        today=date.today()
-        fromaddr = 'kavyatintin@gmail.com'
-        subject='JSSATEB ABSENT NOTIFICATION'
-        now = datetime.now()
-        current_time = now.strftime("%H:%M:%S")
-        wb_obj=openpyxl.load_workbook(os.path.join(dir,"attendance.xlsx"))
-        sheet=wb_obj.active
-        last_empty_row=len(list(sheet.rows))
-        for i in range(2,last_empty_row+1):
-            if sheet.cell(row=i,column=3).value=='A':
-                target=sheet.cell(row=i,column=6).value
-                msg = MIMEMultipart()
-                msg['From'] = fromaddr
-                msg['To'] = target
-                msg['Subject'] = subject
-                msg.attach(MIMEText("This mail is being sent by the management of JSSATEB. This is to inform that your child "+str(sheet.cell(row=i,column=2).value)+" with usn "+str(sheet.cell(row=i,column=1).value)+" is absent for the class on "+str(today)+" held at "+current_time))
-                    
-                server = smtplib.SMTP('smtp.gmail.com', 587)
-                server.ehlo()
-                server.starttls()
-                server.ehlo()
-                server.login(fromaddr, 'qpyjnhpiadfzxzai')
-                server.sendmail(fromaddr, target, msg.as_string())
-                server.quit()
+        self.worker_thread = QThread()
+        self.worker = Worker(dir)
+        self.worker.moveToThread(self.worker_thread)
+        self.worker_thread.started.connect(self.worker.run)
+        self.worker.finished.connect(self.worker_thread.quit)       
+        self.worker_thread.start()
         
         
 

@@ -179,7 +179,6 @@ class FacesRecognition(QtWidgets.QMainWindow):
         
     def sendMail(self):
         self.spread.sendMail(self.mytext)
-        QMessageBox.about(self, "MAIL SENT", "MAIL SENT SUCCESSFULLY")
         self.sendMailBtn.setEnabled(False)
 
     def ftpProcess(self):   
