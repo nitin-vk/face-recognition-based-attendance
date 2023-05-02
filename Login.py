@@ -6,6 +6,7 @@ from num2words import num2words
 is_logged_in = False
 username=''
 class_room=''
+extra_class=False
 
 class Login(QtWidgets.QMainWindow):
 
@@ -63,6 +64,8 @@ class Login(QtWidgets.QMainWindow):
                         response = msg_box.exec_()
                         if response == QMessageBox.Ok:
                             is_logged_in=True
+                            global extra_class
+                            extra_class=True
                         else:
                             is_logged_in=False
                     class_room=rows

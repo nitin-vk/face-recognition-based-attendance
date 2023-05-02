@@ -14,7 +14,7 @@ from PyQt5.QtMultimediaWidgets import QCameraViewfinder
 from PyQt5.QtGui import QPixmap
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from Login import Login,is_logged_in,class_room,username
+from Login import Login,is_logged_in,class_room,username,extra_class
 
 class Worker(QThread):
     finsihed=pyqtSignal()
@@ -112,12 +112,13 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.recognizeBtn.show()
         self.sendMailBtn.show()
         self.sendMailBtn.setEnabled(False)
-        self.worker_thread = QThread()
-        self.worker = Worker(self.yearComboBox.currentText(),self.branchComboBox.currentText(),self.sectionComboBox.currentText())
-        self.worker.moveToThread(self.worker_thread)
-        self.worker_thread.started.connect(self.worker.run)
-        self.worker.finished.connect(self.worker_thread.quit)       
-        self.worker_thread.start()
+        if extra_class==True:
+            self.worker_thread = QThread()
+            self.worker = Worker(self.yearComboBox.currentText(),self.branchComboBox.currentText(),self.sectionComboBox.currentText())
+            self.worker.moveToThread(self.worker_thread)
+            self.worker_thread.started.connect(self.worker.run)
+            self.worker.finished.connect(self.worker_thread.quit)       
+            self.worker_thread.start()
         
 
     def registerStudent(self):
@@ -222,12 +223,13 @@ class FacesRecognition(QtWidgets.QMainWindow):
         self.recognizeBtn.show()
         self.sendMailBtn.show()
         self.sendMailBtn.setEnabled(False)
-        self.worker_thread = QThread()
-        self.worker = Worker(self.yearComboBox.currentText(),self.branchComboBox.currentText(),self.sectionComboBox.currentText())
-        self.worker.moveToThread(self.worker_thread)
-        self.worker_thread.started.connect(self.worker.run)
-        self.worker.finished.connect(self.worker_thread.quit)
-        self.worker_thread.start()
+        if extra_class==True:
+            self.worker_thread = QThread()
+            self.worker = Worker(self.yearComboBox.currentText(),self.branchComboBox.currentText(),self.sectionComboBox.currentText())
+            self.worker.moveToThread(self.worker_thread)
+            self.worker_thread.started.connect(self.worker.run)
+            self.worker.finished.connect(self.worker_thread.quit)
+            self.worker_thread.start()
        
 
 
