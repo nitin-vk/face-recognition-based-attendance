@@ -146,7 +146,7 @@ class FacesRecognition(QtWidgets.QMainWindow):
             print("FILE MOVED SUCCESSFULLY")
             import socket
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            host = '192.168.0.106'  
+            host = 'DESKTOP-B51HC2A'  
             port = 12345  
             s.connect((host, port))
             message = self.branchComboBox.currentText()+"-"+self.yearComboBox.currentText()+"-"+self.sectionComboBox.currentText()

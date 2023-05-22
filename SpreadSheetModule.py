@@ -6,9 +6,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from Login import username
 from PyQt5.QtCore import QThread,pyqtSignal
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox,QWidget
 
-class Worker(QThread):
+'''class Worker(QThread):
     finished=pyqtSignal()
     progress=pyqtSignal(int)
 
@@ -41,7 +41,7 @@ class Worker(QThread):
                 server.login(fromaddr, 'qpyjnhpiadfzxzai')
                 server.sendmail(fromaddr, target, msg.as_string())
                 server.quit()
-        QMessageBox.about(self, "MAIL SENT", "MAIL SENT SUCCESSFULLY")
+        QMessageBox.about(QWidget(), "MAIL SENT", "MAIL SENT SUCCESSFULLY")'''
 
 
 class SpreadSheetModule():
@@ -140,12 +140,37 @@ class SpreadSheetModule():
                 engine.runAndWait()
 
     def sendMail(self,dir):
-        self.worker_thread = QThread()
+        '''self.worker_thread = QThread()
         self.worker = Worker(dir)
         self.worker.moveToThread(self.worker_thread)
         self.worker_thread.started.connect(self.worker.run)
         self.worker.finished.connect(self.worker_thread.quit)       
-        self.worker_thread.start()
+        self.worker_thread.start()'''
+        today=date.today()
+        fromaddr = 'kavyatintin@gmail.com'
+        subject='JSSATEB ABSENT NOTIFICATION'
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        wb_obj=openpyxl.load_workbook(os.path.join(dir,"attendance.xlsx"))
+        sheet=wb_obj.active
+        last_empty_row=len(list(sheet.rows))
+        for i in range(2,last_empty_row+1):
+            if sheet.cell(row=i,column=3).value=='A':
+                target=sheet.cell(row=i,column=6).value
+                msg = MIMEMultipart()
+                msg['From'] = fromaddr
+                msg['To'] = target
+                msg['Subject'] = subject
+                msg.attach(MIMEText("This mail is being sent by the management of JSSATEB. This is to inform that your child "+str(sheet.cell(row=i,column=2).value)+" with usn "+str(sheet.cell(row=i,column=1).value)+" is absent for the class on "+str(today)+" held at "+current_time))
+                    
+                server = smtplib.SMTP('smtp.gmail.com', 587)
+                server.ehlo()
+                server.starttls()
+                server.ehlo()
+                server.login(fromaddr, 'qpyjnhpiadfzxzai')
+                server.sendmail(fromaddr, target, msg.as_string())
+                server.quit()
+        QMessageBox.about(QWidget(), "MAIL SENT", "MAIL SENT SUCCESSFULLY")
         
         
 
