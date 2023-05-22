@@ -106,14 +106,21 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLineEdit" name="trainingDone">
+   <widget class="QLabel" name="trainingDone">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>0</y>
+      <x>150</x>
+      <y>10</y>
       <width>111</width>
-      <height>22</height>
+      <height>20</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+      <underline>true</underline>
+     </font>
     </property>
     <property name="text">
      <string>TRAINING DONE</string>
