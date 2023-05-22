@@ -95,9 +95,9 @@
    <property name="geometry">
     <rect>
      <x>110</x>
-     <y>310</y>
-     <width>311</width>
-     <height>31</height>
+     <y>320</y>
+     <width>421</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -106,29 +106,17 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QTextEdit" name="trainingDone">
+   <widget class="QLineEdit" name="trainingDone">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>140</x>
       <y>0</y>
-      <width>191</width>
-      <height>31</height>
+      <width>111</width>
+      <height>22</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <family>Cambria</family>
-      <weight>75</weight>
-      <italic>true</italic>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="html">
-     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cambria'; font-size:8pt; font-weight:600; font-style:italic;&quot;&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:7.8pt; color:#00ff00;&quot;&gt;TRAINING DONE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <property name="text">
+     <string>TRAINING DONE</string>
     </property>
    </widget>
   </widget>
