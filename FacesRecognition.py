@@ -15,7 +15,6 @@ from PyQt5.QtGui import QPixmap
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from Login import Login,is_logged_in,class_room,username,extra_class
-
 class Worker(QThread):
     finsihed=pyqtSignal()
     progress=pyqtSignal(int)
@@ -44,6 +43,8 @@ class Worker(QThread):
         server.login(fromaddr, 'qpyjnhpiadfzxzai')
         server.sendmail(fromaddr, target, msg.as_string())
         server.quit()
+        self.finished.emit()
+        self.quit()
 
 
 class FacesRecognition(QtWidgets.QMainWindow):
