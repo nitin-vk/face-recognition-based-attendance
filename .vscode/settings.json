@@ -1,3 +1,4 @@
 {
-    "cmake.configureOnOpen": true
+    "cmake.configureOnOpen": true,
+    "cmake.sourceDirectory": "C:/Users/kkr13/OneDrive/Desktop/final year project/face-recognition-based-attendance/haar_cascade_files/data"
 }
